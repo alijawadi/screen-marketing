@@ -2,13 +2,15 @@
 
 namespace App\Domain\Media\DataTransferObjects;
 
-use Illuminate\Http\Request;
 use Spatie\LaravelData\Data;
 
-class StoreMediaDTO extends Data
+class TemplateStoreDTO extends Data
 {
     public function __construct(
         public string $file,
-        public int    $folder_id
-    ){}
+        public string $data,
+        public ?int  $id
+    )
+    {
+    }
 }

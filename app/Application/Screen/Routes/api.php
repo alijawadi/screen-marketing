@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/code/generate', [PairingController::class, 'generateCode']);
 Route::post('/code/check', [PairingController::class, 'checkCode']);
 
-Route::middleware('auth:sanctum')->group(function () {
 
-    Route::post('/screen/update', [ScreenDataController::class, 'update']);
+//todo production: move this route to auth group
+Route::post('/screen/update', [ScreenDataController::class, 'update']);
+
+Route::middleware('auth:sanctum')->group(function () {
 
 });

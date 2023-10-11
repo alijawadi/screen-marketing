@@ -22,7 +22,7 @@ class Screen extends Authenticatable implements Auditable
     protected function tvData(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => json_decode($value, true),
+            get: fn($value) => json_decode($value, true),
             set: fn($value) => json_encode($value),
         );
     }

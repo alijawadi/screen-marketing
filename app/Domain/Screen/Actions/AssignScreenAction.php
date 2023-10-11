@@ -17,6 +17,7 @@ class AssignScreenAction
     {
         $pairingCode = RetrievePairingCode::run($addScreenDTO->code);
 
+
         // Assign Organization to Screen
         $screen = Screen::findOrFail($pairingCode->screen_id);
         $screen->update(["organization_id" => $addScreenDTO->organization_id]);

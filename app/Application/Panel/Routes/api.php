@@ -1,6 +1,7 @@
 <?php
 
 use App\Application\Panel\Controllers\Media\MediaController;
+use App\Application\Panel\Controllers\Media\TemplateController;
 use App\Application\Panel\Controllers\Screen\ScreenController;
 use App\Application\Panel\Controllers\User\AuthControllerApp;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,17 @@ use Illuminate\Support\Facades\Route;
 Route::post('/user/register', [AuthControllerApp::class, 'register']);
 Route::post('/user/login', [AuthControllerApp::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function (){
+Route::middleware('auth:sanctum')->group(function () {
 
+    Route::prefix('template')->group(function () {
+        Route::get('/list', [TemplateController::class, 'index']);
+        Route::post('/store', [TemplateController::class, 'store']);
+        Route::post('/update', [TemplateController::class, 'update']);
+    });
+
+    Route::get('/screen/list', [ScreenController::class, 'index']);
     Route::post('/screen/add', [ScreenController::class, 'add']);
+
     Route::get('/media', [MediaController::class, 'index']);
     Route::post('/media/store', [MediaController::class, 'store']);
 

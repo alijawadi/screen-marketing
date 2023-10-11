@@ -29,9 +29,10 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        //todo write it cleaner
         Blueprint::macro('audits', function () {
-            $this->foreignId('created_by')->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
-            $this->foreignId('updated_by')->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
+            $this->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
+            $this->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 }

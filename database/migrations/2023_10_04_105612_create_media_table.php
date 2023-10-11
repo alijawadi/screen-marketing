@@ -25,7 +25,6 @@ return new class extends Migration {
             $table->json('responsive_images');
             $table->unsignedInteger('order_column')->nullable()->index();
 
-            $table->foreignId('folder_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->audits();
             $table->softDeletes();
 
