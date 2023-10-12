@@ -10,10 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('media_playlist', function (Blueprint $table) {
-            $table->foreignId('media_id')->constrained('media')->cascadeOnUpdate()->cascadeOnDelete();
+        Schema::create('media_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('item_id');
+            $table->string('item_type');
+            $table->unsignedInteger('duration');
             $table->foreignId('playlist_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedInteger('order_column')->nullable()->index();
+            $table->unique(['order_column', 'playlist_id']);
             $table->timestamps();
             $table->audits();
         });
