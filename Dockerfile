@@ -1,4 +1,4 @@
-FROM php:8.1.18-fpm
+FROM php:8.2-fpm
 
 # Set working directory
 WORKDIR /var/www
@@ -46,3 +46,7 @@ RUN chmod -R 755 bootstrap/cache
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
+
+
+
+
