@@ -168,7 +168,6 @@ return [
         // Application\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\MercureServiceProvider::class,
         App\Providers\Base64ServiceProvider::class,
 
     ])->toArray(),
