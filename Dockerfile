@@ -37,7 +37,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy existing application directory contents
 COPY . .
 
-COPY ./nginx/conf.d/php.ini /usr/local/etc/php/php.ini
+COPY ./caddy/php.ini /usr/local/etc/php/php.ini
 
 RUN chmod -R 755 public
 RUN chmod -R 755 storage

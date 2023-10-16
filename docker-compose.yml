@@ -10,7 +10,7 @@ services:
     tty: true
     volumes:
       - ./:/var/www
-      - ./nginx/conf.d/php.ini:/usr/local/etc/php/php.ini
+      - ./caddy/php.ini:/usr/local/etc/php/php.ini
       - vendor:/var/www/vendor
     environment:
       SERVICE_NAME: app
@@ -27,7 +27,7 @@ services:
     container_name: screens-api-caddy
     ports:
       - "80:80"
-      - "443:443"
+      # - "443:443"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
 
