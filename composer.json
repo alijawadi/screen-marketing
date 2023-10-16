@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "lorisleiva/laravel-actions": "^2.7",
         "lunarstorm/laravel-ddd": "^0.6.1",
+        "mvanduijker/laravel-mercure-broadcaster": "^3.5",
         "owen-it/laravel-auditing": "^13.5",
         "spatie/laravel-data": "^3.9",
         "spatie/laravel-medialibrary": "^10.13",

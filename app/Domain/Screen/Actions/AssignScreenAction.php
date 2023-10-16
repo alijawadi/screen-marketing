@@ -6,7 +6,10 @@ use App\Domain\Screen\Actions\AuthenticateScreen;
 use App\Domain\Screen\Actions\MercurePublish;
 use App\Domain\Screen\Actions\RetrievePairingCode;
 use App\Domain\Screen\DataTransferObjects\AddScreenDTO;
+use App\Domain\Screen\Events\ScreenAddedToOrganizationEvent;
 use Domain\Screen\Models\Screen;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Event;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class AssignScreenAction
@@ -27,7 +30,10 @@ class AssignScreenAction
 
         $topic = $pairingCode->code;
         $message = json_encode(['token' => AuthenticateScreen::run($screen)]);
-        MercurePublish::run($topic, $message);
+
+        Broadcast::event(new ScreenAddedToOrganizationEvent($topic, $message));
+//        ScreenAddedToOrganizationEvent::dispatch($topic, $message);
+//        MercurePublish::run($topic, $message);
     }
 
 }

@@ -11,11 +11,11 @@ return [
     | framework when an event needs to be broadcast. You may set this to
     | any of the connections defined in the "connections" array below.
     |
-    | Supported: "pusher", "ably", "redis", "log", "null"
+    | Supported: "pusher", "ably", "redis", "log", "null", "mercure"
     |
     */
 
-    'default' => env('BROADCAST_DRIVER', 'null'),
+    'default' => env('BROADCAST_DRIVER', 'mercure'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,6 +29,12 @@ return [
     */
 
     'connections' => [
+
+        'mercure' => [
+            'driver' => 'mercure',
+            'url' => env('MERCURE_URL', 'http://localhost:3000/.well-known/mercure'),
+            'secret' => env('MERCURE_SECRET'),
+        ],
 
         'pusher' => [
             'driver' => 'pusher',
