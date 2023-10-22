@@ -4,7 +4,7 @@ FROM php:8.2-fpm
 WORKDIR /var/www
 
 # Copy composer.lock and composer.json
-COPY composer.lock composer.json ./
+COPY composer.json ./
 
 # Install dependencies
 RUN apt-get update
@@ -42,9 +42,8 @@ COPY ./php/php.ini /usr/local/etc/php/php.ini
 # Install project dependencies
 RUN composer install
 
-RUN chmod -R 755 public
-RUN chmod -R 755 storage
-RUN chmod -R 755 bootstrap/cache
+RUN chmod -R u=rwx,g=rwx,o=rwx public
+RUN chmod -R u=rwx,g=rwx,o=rwx storage
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000

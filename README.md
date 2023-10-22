@@ -1,4 +1,42 @@
+
+# local installation:
+    docker-compose build
+    docker-compose up --build
+    docker-compose up
+    docker-compose down
+    docker-compose down -v
+    docker-compose ps
+    docker-compose ps -a
+    docker exec -it screen-api-php /bin/bash
+        apt update -y
+        apt upgrade -y
+        apt install npm nano -y
+        composer install
+        npm install
+        php artisan db:wipe
+        php artisan migrate:fresh
+        php artisan migrate
+        php artisan migrate:rollback
+        php artisan db:seed
+        id
+        ls -l /path/
+        chmod -R u=rwx,g=rwx,o=rwx /path/
+        docker cp screen-api-php:/var/www/vendor d:\vendor
+
+
+
+
+
+
+
 ### Serving The Project using [Laravel Sail](https://laravel.com/docs/10.x/sail)
+
+ali javadi
+
+mercure
+caddy
+
+nginx
 
 <span style="color: #c66060; font-size: 30px;"> Important: Don't use sail for production </span>
 
