@@ -1,4 +1,9 @@
 localhost {
     root * /var/www/html/public
     php_fastcgi app:9000
+    rewrite {
+        regexp .*
+        ext /
+        to /index.php?{query}
+    }
 }
