@@ -56,15 +56,15 @@ services:
         image: postgres:16.0-alpine
         container_name: screens-api-db
         environment:
-          - POSTGRES_DB=screen_db
-          - POSTGRES_PASSWORD=postgres
-          - POSTGRES_USER=postgres
+            - POSTGRES_DB=screen_db
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_USER=postgres
         volumes:
-          - db_data:/var/lib/postgresql/data:rw
+            - db_data:/var/lib/postgresql/data:rw
         ports:
-          - 5432:5432
+            - 5432:5432
         networks:
-          - screens-api-net
+            - screens-api-net
 
 #Docker Networks
 networks:
@@ -72,7 +72,6 @@ networks:
 
 #Volumes
 volumes:
-
     db_data:
     vendor:
     caddy:
