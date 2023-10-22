@@ -1,7 +1,7 @@
 FROM php:8.2-fpm
 
 # Set working directory
-WORKDIR /app
+WORKDIR /var/www
 
 # Copy composer.lock and composer.json
 COPY composer.lock composer.json ./
@@ -37,7 +37,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy existing application directory contents
 COPY . .
 
-COPY ./caddy/php.ini /usr/local/etc/php/php.ini
+COPY ./php/php.ini /usr/local/etc/php/php.ini
 
 # Install project dependencies
 RUN composer install
@@ -49,7 +49,3 @@ RUN chmod -R 755 bootstrap/cache
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
-
-
-
-

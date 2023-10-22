@@ -1,76 +1,77 @@
 version: '3'
 services:
-  #PHP Service
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: app
-    restart: unless-stopped
-    tty: true
-    volumes:
-      - ./:/app
-      - ./caddy/php.ini:/usr/local/etc/php/php.ini
-      - vendor:/app/vendor
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    networks:
-      - screens-api-net
-    depends_on:
-      - db
-      - caddy
+    #PHP Service
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: screen-api-php
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - ./:/var/www
+            - ./caddy/php.ini:/usr/local/etc/php/php.ini
+            - vendor:/var/www/vendor
+        environment:
+            SERVICE_NAME: php
+            SERVICE_TAGS: dev
+        networks:
+            - screens-api-net
+        depends_on:
+            - db
 
-  #Caddy Service
-  caddy:
-    image: caddy:2.7.5-alpine
-    container_name: screens-api-caddy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy/logs/:/var/log/caddy:wr
-    networks:
-      - screens-api-net
+    #Caddy Service
+    caddy:
+        image: caddy:2.7.5-alpine
+        container_name: screens-api-caddy
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - .:/srv
+            - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+            - ./caddy/logs/:/var/log/caddy:wr
+        networks:
+            - screens-api-net
+        depends_on:
+            - php
 
-  #Mercure Service
-  mercure:
-      image: dunglas/mercure
-      container_name: screens-api-mercure
-      environment:
-          DEBUG: debug
-          SERVER_NAME: ':80'
-          MERCURE_PUBLISHER_JWT_KEY: qwertyuiopasdfghjklzxcvbnm123456
-          MERCURE_SUBSCRIBER_JWT_KEY: ~my-jwt-key-here~
-          MERCURE_EXTRA_DIRECTIVES: "cors_origins \"http://127.0.0.1\"\nanonymous"
-      networks:
-          - screens-api-net
-      ports:
-          - '9009:80'
+    #Mercure Service
+    mercure:
+        image: dunglas/mercure
+        container_name: screens-api-mercure
+        environment:
+            DEBUG: debug
+            SERVER_NAME: ':80'
+            MERCURE_PUBLISHER_JWT_KEY: qwertyuiopasdfghjklzxcvbnm123456
+            MERCURE_SUBSCRIBER_JWT_KEY: ~my-jwt-key-here~
+            MERCURE_EXTRA_DIRECTIVES: "cors_origins \"http://127.0.0.1\"\nanonymous"
+        networks:
+            - screens-api-net
+        ports:
+            - '9009:80'
 
-  #Postgres Service
-  db:
-    image: postgres:16.0-alpine
-    container_name: screens-api-db
-    environment:
-      - POSTGRES_DB=${DB_DATABASE}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_USER=${DB_USERNAME}
-    volumes:
-      - screens-db-data:/var/lib/postgresql/data:rw
-    ports:
-      - 5433:5432
-    networks:
-      - screens-api-net
+    #Postgres Service
+    db:
+        image: postgres:16.0-alpine
+        container_name: screens-api-db
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_USER=${DB_USERNAME}
+        volumes:
+            - db_data:/var/lib/postgresql/data:rw
+        ports:
+            - 5432:5432
+        networks:
+            - screens-api-net
 
 #Docker Networks
 networks:
-  screens-api-net:
+    screens-api-net:
 
 #Volumes
 volumes:
-  screens-db-data:
-  vendor:
-  caddy:
-
+    db_data:
+    vendor:
+    caddy:
