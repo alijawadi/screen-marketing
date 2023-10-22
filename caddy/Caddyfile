@@ -1,9 +1,8 @@
 localhost {
-    root * /var/www/html/public
+    root * /var/www/public
     php_fastcgi app:9000
-    rewrite {
-        regexp .*
-        ext /
-        to /index.php?{query}
+    file_server
+    log {
+        output file /var/log/caddy/localhost-access.log
     }
 }

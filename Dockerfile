@@ -1,7 +1,7 @@
 FROM php:8.2-fpm
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /app
 
 # Copy composer.lock and composer.json
 COPY composer.lock composer.json ./
@@ -38,6 +38,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . .
 
 COPY ./caddy/php.ini /usr/local/etc/php/php.ini
+
+# Install project dependencies
+RUN composer install
 
 RUN chmod -R 755 public
 RUN chmod -R 755 storage

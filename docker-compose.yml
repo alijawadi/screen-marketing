@@ -1,17 +1,17 @@
 version: '3'
 services:
   #PHP Service
-  php:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: screens-api-php
+    container_name: app
     restart: unless-stopped
     tty: true
     volumes:
-      - ./:/var/www
+      - ./:/app
       - ./caddy/php.ini:/usr/local/etc/php/php.ini
-      - vendor:/var/www/vendor
+      - vendor:/app/vendor
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
@@ -26,10 +26,13 @@ services:
     image: caddy:2.7.5-alpine
     container_name: screens-api-caddy
     ports:
-      - "8080:80"
-#      - "443:443"
+      - "80:80"
+      - "443:443"
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/logs/:/var/log/caddy:wr
+    networks:
+      - screens-api-net
 
   #Mercure Service
   mercure:
@@ -69,4 +72,5 @@ networks:
 volumes:
   screens-db-data:
   vendor:
+  caddy:
 
