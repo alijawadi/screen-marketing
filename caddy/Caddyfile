@@ -1,4 +1,4 @@
-:80 {
+localhost {
 	tls internal
     root * /srv/public
     php_fastcgi php:9000 {
