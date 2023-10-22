@@ -1,38 +1,40 @@
 version: '3'
 services:
   #PHP Service
-  app:
+  php:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
+    container_name: screen-api-php
     restart: unless-stopped
     tty: true
     volumes:
-      - ./:/app
+      - ./:/var/www
       - ./caddy/php.ini:/usr/local/etc/php/php.ini
-      - vendor:/app/vendor
+      - vendor:/var/www/vendor
     environment:
-      SERVICE_NAME: app
+      SERVICE_NAME: php
       SERVICE_TAGS: dev
     networks:
       - screens-api-net
     depends_on:
       - db
-      - caddy
 
   #Caddy Service
   caddy:
     image: caddy:2.7.5-alpine
     container_name: screens-api-caddy
     ports:
-      - "80:80"
-      - "443:443"
+        - "80:80"
+        - "443:443"
     volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy/logs/:/var/log/caddy:wr
+        - .:/srv
+        - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+        - ./caddy/logs/:/var/log/caddy:wr
     networks:
-      - screens-api-net
+        - screens-api-net
+    depends_on:
+        - php
 
   #Mercure Service
   mercure:
@@ -58,9 +60,9 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_USER=${DB_USERNAME}
     volumes:
-      - screens-db-data:/var/lib/postgresql/data:rw
+      - db_data:/var/lib/postgresql/data:rw
     ports:
-      - 5433:5432
+      - 5432:5432
     networks:
       - screens-api-net
 
@@ -70,7 +72,7 @@ networks:
 
 #Volumes
 volumes:
-  screens-db-data:
+  db_data:
   vendor:
   caddy:
 
