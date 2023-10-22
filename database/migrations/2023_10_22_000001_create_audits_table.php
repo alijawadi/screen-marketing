@@ -29,8 +29,9 @@ class CreateAuditsTable extends Migration
             $table->text('new_values')->nullable();
             $table->text('url')->nullable();
             $table->ipAddress('ip_address')->nullable();
-            $table->string('user_agent', 1023)->nullable();
+            $table->text('user_agent')->nullable();
             $table->string('tags')->nullable();
+
             $table->timestamps();
 
             $table->index([$morphPrefix . '_id', $morphPrefix . '_type']);
@@ -47,6 +48,6 @@ class CreateAuditsTable extends Migration
         $connection = config('audit.drivers.database.connection', config('database.default'));
         $table = config('audit.drivers.database.table', 'audits');
 
-        Schema::connection($connection)->drop($table);
+        Schema::connection($connection)->dropIfExists($table);
     }
 }

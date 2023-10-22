@@ -11,6 +11,9 @@ return new class extends Migration {
             $table->id();
 
             $table->morphs('model');
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+
             $table->uuid()->nullable()->unique();
             $table->string('collection_name');
             $table->string('name');
@@ -25,10 +28,18 @@ return new class extends Migration {
             $table->json('responsive_images');
             $table->unsignedInteger('order_column')->nullable()->index();
 
-            $table->audits();
             $table->softDeletes();
 
             $table->nullableTimestamps();
         });
     }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('media');
+    }
+
 };

@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('folders', function (Blueprint $table) {
+        Schema::create('playlists', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->nullable()->unique();
-            $table->string('name');
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+
+            $table->string('name', 50);
+            $table->unsignedBigInteger('duration');
+
             $table->timestamps();
             $table->softDeletes();
-            $table->audits();
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('folders_talbe');
+        Schema::dropIfExists('playlists');
     }
 };

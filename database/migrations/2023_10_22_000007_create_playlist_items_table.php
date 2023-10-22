@@ -13,13 +13,18 @@ return new class extends Migration {
         Schema::create('media_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id');
+            $table->foreignId('playlist_id')->constrained("playlists","id")->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+
             $table->string('item_type');
             $table->unsignedInteger('duration');
-            $table->foreignId('playlist_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedInteger('order_column')->nullable()->index();
-            $table->unique(['order_column', 'playlist_id']);
+
             $table->timestamps();
-            $table->audits();
+
+            $table->unique(['order_column', 'playlist_id']);
+
         });
     }
 
@@ -28,6 +33,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('media_playlist');
+        Schema::dropIfExists('media_items');
     }
 };
