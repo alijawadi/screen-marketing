@@ -1,4 +1,4 @@
-localhost, caddy:80 {
+localhost:443 {
     root * /srv/public
     php_fastcgi php:9000 {
         root /var/www/public
