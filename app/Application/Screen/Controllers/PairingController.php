@@ -4,6 +4,7 @@ namespace App\Application\Screen\Controllers;
 
 use App\Application\Screen\Requests\CodeCheckRequest;
 use App\Application\Screen\Requests\CreateScreenRequest;
+use App\Application\Shared\Responses\ErrorResponse;
 use App\Application\Shared\Responses\SuccessResponse;
 use Domain\Screen\Actions\CheckPairingStatusAction;
 use Domain\Screen\Actions\CreateScreenAction;
@@ -41,8 +42,12 @@ class PairingController extends ScreenAppBaseController
      */
     public function checkCode(CodeCheckRequest $request): Response
     {
-        $token = CheckPairingStatusAction::run($request->code);
+        $token = CheckPairingStatusAction::run($request->get("code"));
 
-        return new SuccessResponse(['success' => true, 'token' => $token]);
+        if (!$token){
+            return new ErrorResponse("code is not assigned to any account.",406);
+        }
+
+        return new SuccessResponse(['token' => $token]);
     }
 }
