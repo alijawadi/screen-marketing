@@ -19,9 +19,8 @@ class Organization extends Model implements Auditable
     protected $table = "organizations";
 
     protected $fillable = [
-        "root_folder_id",
         "name",
-        "description",
+        "description",//nullable
     ];
 
     /**
@@ -32,7 +31,6 @@ class Organization extends Model implements Auditable
      * @var array
      */
     protected $casts = [
-        "root_folder_id" => "integer",
         "name" => "string",
         "description" => "string",
     ];
@@ -40,6 +38,7 @@ class Organization extends Model implements Auditable
     protected $dates = [
         "created_at",
         "updated_at",
+        "deleted_at",
     ];
 
     protected $guarded = [
