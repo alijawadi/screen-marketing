@@ -34,6 +34,7 @@ services:
       - traefik.http.routers.screen-apis.service=caddy-screen-apis
       - traefik.http.routers.screen-apis.entrypoints=https
       - traefik.http.middlewares.screen-apis.redirectscheme.scheme=https
+      - traefik.http.middlewares.screen-apis.redirectscheme.permanent=true
       - traefik.http.routers.screen-apis.tls.certresolver=myresolver
     volumes:
       - .:/srv

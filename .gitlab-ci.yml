@@ -14,7 +14,7 @@ develop:
     - docker-compose -f docker-compose.stage.yml down
     - cp .env.stage .env
     - docker-compose -f docker-compose.stage.yml up --build -d
-    - docker-compose -f docker-compose.stage.yml exec -T php composer install --no-cache
-    #- docker-compose -f docker-compose.stage.yml exec -T php php artisan migrate
-    #- docker-compose -f docker-compose.stage.yml exec -T php php artisan optimize
+    - docker-compose -f docker-compose.stage.yml exec -T php composer install
+    - docker-compose -f docker-compose.stage.yml exec -T php php artisan migrate
+    - docker-compose -f docker-compose.stage.yml exec -T php php artisan optimize
 
