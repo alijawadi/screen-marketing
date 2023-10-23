@@ -15,11 +15,11 @@ class RegisterUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["present", "string"],
+            "name" => ["Required", "string"],
             "email" => [
                 "Required",
                 "email",
-                Rule::unique('users')
+                Rule::unique("users","email")
             ],
             "password" => [
                 "Required",
