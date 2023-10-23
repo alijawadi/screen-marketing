@@ -12,11 +12,11 @@ return new class extends Migration {
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
 
-            $table->string('name', 50)->nullable();
+            $table->string('name', 50);
             $table->json('data')->nullable();
 
             $table->timestamps();
