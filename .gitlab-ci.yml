@@ -11,7 +11,7 @@ develop:
   only:
     - develop
   script:
-    - docker-compose -f docker-compose.stage.yml down -v
+    - docker-compose -f docker-compose.stage.yml down
     - cp .env.stage .env
     - docker-compose -f docker-compose.stage.yml up --build -d
     - docker-compose -f docker-compose.stage.yml exec -T php composer install

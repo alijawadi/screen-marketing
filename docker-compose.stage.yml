@@ -34,9 +34,10 @@ services:
       - traefik.docker.network=traefik-web
       - traefik.http.routers.screen-apis.rule=Host(`apisscreen.selectedstartups.com`)
       - traefik.http.routers.screen-apis.service=caddy-screen-apis
+      - traefik.http.routers.screen-apis.priority=10
       - traefik.http.routers.screen-apis.entrypoints=https
-      - traefik.http.middlewares.screen-apis.redirectscheme.scheme=https
-      - traefik.http.middlewares.screen-apis.redirectscheme.permanent=true
+      # - traefik.http.middlewares.screen-apis.redirectscheme.scheme=https
+      # - traefik.http.middlewares.screen-apis.redirectscheme.permanent=true
       - traefik.http.routers.screen-apis.tls.certresolver=myresolver
     volumes:
       - .:/srv
