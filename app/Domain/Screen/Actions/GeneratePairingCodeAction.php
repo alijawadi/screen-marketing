@@ -2,8 +2,8 @@
 
 namespace Domain\Screen\Actions;
 
-use App\Domain\Screen\DataTransferObjects\ScreenDTO;
 use Domain\Screen\Models\PairingCode;
+use Illuminate\Database\Eloquent\Model;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GeneratePairingCodeAction
@@ -12,16 +12,18 @@ class GeneratePairingCodeAction
 
     const UNAMBIGUOUS_ALPHABET = 'BCDFGHJMNPRSTWXY2456789';
 
-    public function handle(ScreenDTO $screenDTO = null, int $characters = 6): PairingCode
+    public function handle(int $screen_id): PairingCode|Model
     {
         do {
-            $code = $this->generateCode($characters);
-        } while (PairingCode::where('code', $code)->exists());
+            $code = $this->generateCode(6);
+        } while (PairingCode::query()->where('code', "=", $code)->exists());
 
-        $pairingCode = new PairingCode();
-        $pairingCode->code = $code;
-        $pairingCode->screen_id = $screenDTO->id;
-        $pairingCode->save();
+        $pairingCode = PairingCode::query()
+            ->create([
+                "code" => $code,
+                "screen_id" => $screen_id,
+                "organization_id" => null,
+            ]);
 
         return $pairingCode;
     }
