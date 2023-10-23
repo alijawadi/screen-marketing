@@ -28,10 +28,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/update', [TemplateController::class, 'update']);
     });
 
-    Route::get('/screen/list', [ScreenController::class, 'index']);
-    Route::post('/screen/add', [ScreenController::class, 'add']);
+    Route::prefix('screen')->group(function () {
+        Route::get('/list', [ScreenController::class, 'index']);
+        Route::post('/add', [ScreenController::class, 'add']);
+    });
 
-    Route::get('/media', [MediaController::class, 'index']);
-    Route::post('/media/store', [MediaController::class, 'store']);
+    Route::prefix('media')->group(function () {
+        Route::get('/', [MediaController::class, 'index']);
+        Route::post('/store', [MediaController::class, 'store']);
+    });
 
 });
