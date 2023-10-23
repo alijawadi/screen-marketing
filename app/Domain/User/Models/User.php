@@ -19,15 +19,36 @@ class User extends Authenticatable implements Auditable
 {
     use HasApiTokens, HasFactory, Notifiable, AuditableTrait, WithData, HasUuid;
 
-    protected string $dataClass = UserDTO::class;
+    protected $table = "users";
+
+    protected $fillable = [
+        "organization_id",
+        "uuid",
+        "name",
+        "email",
+        "email_verified_at",
+        "password",
+    ];
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that should be cast to native types.
+     * integer, real, float, double, string, boolean, object, array,
+     * collection, date, datetime, and timestamp
      *
-     * @var array<int, string>
+     * @var array
      */
-    protected $guarded = [
-        'id'
+    protected $casts = [
+        "organization_id" => "integer",
+        "uuid" => "string",
+        "name" => "string",
+        "email" => "integer",
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    protected $dates = [
+        "created_at",
+        "updated_at",
     ];
 
     /**
@@ -40,18 +61,22 @@ class User extends Authenticatable implements Auditable
         'remember_token',
     ];
 
+    protected string $dataClass = UserDTO::class;
+
     /**
-     * The attributes that should be cast.
+     * The attributes that are mass assignable.
      *
-     * @var array<string, string>
+     * @var array<int, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+    protected $guarded = [
+        'id'
     ];
+
 
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
     }
+
+
 }
