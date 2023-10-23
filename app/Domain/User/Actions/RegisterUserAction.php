@@ -45,7 +45,7 @@ class RegisterUserAction
                 "is_organization_owner" => true,
             ]);
 
-        return AuthUserDTO::from($user->createToken('register')->plainTextToken);
+        return AuthUserDTO::from(["token" => $user->createToken('register')->plainTextToken]);
     }
 
 }
