@@ -1,0 +1,88 @@
+version: "3"
+services:
+  #PHP Service
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: screen-apis-php
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./:/var/www
+      - ./caddy/php.ini:/usr/local/etc/php/php.ini
+      - vendor:/var/www/vendor
+    environment:
+      SERVICE_NAME: php
+      SERVICE_TAGS: dev
+    networks:
+      - screen-apis-net
+    depends_on:
+      - db
+
+  #Caddy Service
+  caddy:
+    image: caddy:2.7.5-alpine
+    container_name: screen-apis-caddy
+    # ports:
+    #     - "80:80"
+    #     - "443:443"
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-web
+      - traefik.http.routers.caddy-screen-apis.rule=Host(`apis.screen.selectedstartups.com`)
+      - traefik.http.routers.caddy-screen-apis.entrypoints=https
+      - traefik.http.middlewares.caddy-screen-apis.redirectscheme.scheme=https
+      - traefik.http.middlewares.caddy-screen-apis.redirectscheme.permanent=true
+      - traefik.http.routers.caddy-screen-apis.tls.certresolver=myresolver
+    volumes:
+      - .:/srv
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/logs/:/var/log/caddy
+    networks:
+      - screen-apis-net
+      - traefik-web
+    depends_on:
+      - php
+
+    #Mercure Service
+  mercure:
+    image: dunglas/mercure
+    container_name: screen-apis-mercure
+    environment:
+      DEBUG: debug
+      SERVER_NAME: ":80"
+      MERCURE_PUBLISHER_JWT_KEY: qwertyuiopasdfghjklzxcvbnm123456
+      MERCURE_SUBSCRIBER_JWT_KEY: ~my-jwt-key-here~
+      MERCURE_EXTRA_DIRECTIVES: "cors_origins \"http://127.0.0.1\"\nanonymous"
+    networks:
+      - screen-apis-net
+    # ports:
+    #     - '9009:80'
+
+  #Postgres Service
+  db:
+    image: postgres:16.0-alpine
+    container_name: screen-apis-db
+    environment:
+      - POSTGRES_DB=screen_db
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    # ports:
+    #     - 5432:5432
+    networks:
+      - screen-apis-net
+
+#Docker Networks
+networks:
+  screen-apis-net:
+  traefik-web:
+    external: true
+
+#Volumes
+volumes:
+  dbdata:
+  vendor:
+  caddy:
