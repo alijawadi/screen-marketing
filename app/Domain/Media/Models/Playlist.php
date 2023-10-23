@@ -12,6 +12,7 @@ class Playlist extends Model
     protected $table = "playlists";
 
     protected $fillable = [
+        "organization_id",
         "created_by",
         "updated_by",
         "name",
@@ -26,6 +27,7 @@ class Playlist extends Model
      * @var array
      */
     protected $casts = [
+        "organization_id" => "integer",
         "created_by" => "integer",
         "updated_by" => "integer",
         "name" => "string",
