@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/code/generate', [PairingController::class, 'generateCode']);
+Route::post('/code/generate', [PairingController::class, 'generateCode']);
 Route::post('/code/check', [PairingController::class, 'checkCode']);
 
 
