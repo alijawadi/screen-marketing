@@ -1,4 +1,4 @@
-localhost {
+apis.screen.selectedstartups.com {
 	tls internal
     root * /srv/public
     php_fastcgi php:9000 {
