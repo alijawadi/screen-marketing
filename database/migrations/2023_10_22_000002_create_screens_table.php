@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('screens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->foreignId('organization_id')->nullable()->constrained("organizations","id")->cascadeOnDelete();
             $table->uuid()->unique();
             $table->string('device_id')->nullable();
             $table->string('name')->nullable();

@@ -18,7 +18,7 @@ class Screen extends Authenticatable implements Auditable
     protected $table = "screens";
 
     protected $fillable = [
-        "organization_id",
+        "organization_id",//nullable
         "uuid",
         "device_id",//nullable
         "name",//nullable
