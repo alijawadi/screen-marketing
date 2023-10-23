@@ -18,11 +18,10 @@ class LoginUserRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::exists('users', 'email')/*->whereNotNull('verified_at')*/
+                Rule::exists('users', 'email')
             ],
             'password' => [
                 'required',
-//                'current_password:api'
             ]
         ];
     }
