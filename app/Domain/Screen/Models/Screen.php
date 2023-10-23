@@ -15,6 +15,39 @@ class Screen extends Authenticatable implements Auditable
 {
     use HasApiTokens, HasFactory, Notifiable, AuditableTrait, HasUuid;
 
+    protected $table = "screens";
+
+    protected $fillable = [
+        "uuid",
+        "device_id",
+        "organization_id",
+        "name",
+        "description",
+        "tv_data",
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     * integer, real, float, double, string, boolean, object, array,
+     * collection, date, datetime, and timestamp
+     *
+     * @var array
+     */
+    protected $casts = [
+        "uuid" => "string",
+        "device_id" => "integer",
+        "organization_id" => "integer",
+        "name" => "string",
+        "description" => "string",
+        "tv_data" => "object",
+    ];
+
+    protected $dates = [
+        "created_at",
+        "updated_at",
+    ];
+
+
     protected $guarded = [
         "id"
     ];
