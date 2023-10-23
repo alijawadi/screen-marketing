@@ -17,8 +17,7 @@ class Folder extends Model implements HasMedia
     protected $table = "folders";
 
     protected $fillable = [
-        "created_by",
-        "updated_by",
+        "organization_id",
         "uuid",
         "name",
     ];
@@ -31,8 +30,7 @@ class Folder extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
-        "created_by" => "integer",
-        "updated_by" => "integer",
+        "organization_id" => "integer",
         "uuid" => "string",
         "name" => "string",
     ];

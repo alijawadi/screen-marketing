@@ -12,10 +12,8 @@ return new class extends Migration {
     {
         Schema::create('folders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
-
-            $table->uuid()->nullable()->unique();
+            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->uuid()->unique();
             $table->string('name');
 
             $table->timestamps();
