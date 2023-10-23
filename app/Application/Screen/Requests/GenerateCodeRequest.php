@@ -3,7 +3,6 @@
 namespace App\Application\Screen\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class GenerateCodeRequest extends FormRequest
 {
@@ -15,7 +14,7 @@ class GenerateCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tv_data' => ['required', "array"],
+            'tv_data' => ['present', "array"],
         ];
     }
 }
