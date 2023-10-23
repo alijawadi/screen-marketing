@@ -16,6 +16,32 @@ class Organization extends Model implements Auditable
 {
     use HasFactory, AuditableTrait;
 
+    protected $table = "organizations";
+
+    protected $fillable = [
+        "root_folder_id",
+        "name",
+        "description",
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     * integer, real, float, double, string, boolean, object, array,
+     * collection, date, datetime, and timestamp
+     *
+     * @var array
+     */
+    protected $casts = [
+        "root_folder_id" => "integer",
+        "name" => "string",
+        "description" => "string",
+    ];
+
+    protected $dates = [
+        "created_at",
+        "updated_at",
+    ];
+
     protected $guarded = [
         'id'
     ];
