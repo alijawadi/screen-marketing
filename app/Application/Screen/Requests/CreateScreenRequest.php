@@ -4,7 +4,7 @@ namespace App\Application\Screen\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GenerateCodeRequest extends FormRequest
+class CreateScreenRequest extends FormRequest
 {
     public function authorize(): bool
     {
