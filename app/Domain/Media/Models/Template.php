@@ -15,6 +15,37 @@ class Template extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
+    protected $table = "playlists";
+
+    protected $fillable = [
+        "created_by",
+        "updated_by",
+        "organization_id",
+        "name",
+        "data",
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     * integer, real, float, double, string, boolean, object, array,
+     * collection, date, datetime, and timestamp
+     *
+     * @var array
+     */
+    protected $casts = [
+        "created_by" => "integer",
+        "updated_by" => "integer",
+        "organization_id" => "integer",
+        "name" => "string",
+        "data" => "object",
+    ];
+
+    protected $dates = [
+        "created_at",
+        "updated_at",
+        "deleted_at",
+    ];
+
     protected $guarded = [
         'id'
     ];
