@@ -14,6 +14,35 @@ class Folder extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasUuid;
 
+    protected $table = 'folders';
+
+    protected $fillable = [
+        'created_by',
+        'updated_by',
+        'uuid',
+        'name',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     * integer, real, float, double, string, boolean, object, array,
+     * collection, date, datetime, and timestamp
+     *
+     * @var array
+     */
+    protected $casts = [
+        "created_by" => "integer",
+        "updated_by" => "integer",
+        "uuid" => "string",
+        "name" => "string",
+    ];
+
+    protected $dates = [
+        "created_at",
+        "updated_at",
+        "deleted_at",
+    ];
+
     protected $guarded = [
         'id'
     ];
