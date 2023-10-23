@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('screen_id')->constrained("screens", "id")->cascadeOnDelete();
             $table->foreignId('organization_id')->nullable()->constrained("organizations", "id")->cascadeOnDelete();
 
-            $table->string('code')->index();
+            $table->string('code')->unique();
 
             $table->timestamps();
         });

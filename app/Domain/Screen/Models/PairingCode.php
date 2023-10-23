@@ -13,7 +13,7 @@ class PairingCode extends Model
 
     protected $fillable = [
         "screen_id",
-        "organization_id",
+        "organization_id",//nullable
         "code",
     ];
 
