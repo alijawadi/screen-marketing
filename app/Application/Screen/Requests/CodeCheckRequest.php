@@ -17,9 +17,9 @@ class CodeCheckRequest extends FormRequest
         return [
             'code' => [
                 'required',
-                Rule::exists('pairing_codes')
+                'string',
+                Rule::exists('pairing_codes', "code")
             ],
-
         ];
     }
 }
