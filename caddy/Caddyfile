@@ -1,9 +1,8 @@
-localhost, caddy:80 {
+:80, caddy:80 {
     root * /srv/public
     php_fastcgi php:9000 {
         root /var/www/public
     }
     file_server
-    tls internal
     encode gzip
 }
