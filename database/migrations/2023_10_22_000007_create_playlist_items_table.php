@@ -12,19 +12,16 @@ return new class extends Migration {
     {
         Schema::create('media_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id');
             $table->foreignId('playlist_id')->constrained("playlists","id")->cascadeOnDelete();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
 
             $table->string('item_type');
             $table->unsignedInteger('duration');
-            $table->unsignedInteger('order_column')->nullable()->index();
+            $table->unsignedInteger('order_column');
 
             $table->timestamps();
-
-            $table->unique(['order_column', 'playlist_id']);
-
+            $table->softDeletes();
         });
     }
 

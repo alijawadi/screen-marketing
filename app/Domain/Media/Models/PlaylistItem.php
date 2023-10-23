@@ -12,10 +12,9 @@ class PlaylistItem extends Model
     protected $table = "playlists";
 
     protected $fillable = [
+        "playlist_id",
         "created_by",
         "updated_by",
-        "item_id",
-        "playlist_id",
         "item_type",
         "duration",
         "order_column",
