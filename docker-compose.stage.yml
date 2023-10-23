@@ -27,6 +27,8 @@ services:
     # ports:
     #     - "80:80"
     #     - "443:443"
+    environment:
+      SERVER_NAME: ${SERVER_NAME:-localhost, caddy:80}
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik-web
