@@ -18,12 +18,12 @@ class Screen extends Authenticatable implements Auditable
     protected $table = "screens";
 
     protected $fillable = [
-        "uuid",
-        "device_id",
         "organization_id",
-        "name",
-        "description",
-        "tv_data",
+        "uuid",
+        "device_id",//nullable
+        "name",//nullable
+        "description",//nullable
+        "tv_data",//nullable
     ];
 
     /**
@@ -34,9 +34,9 @@ class Screen extends Authenticatable implements Auditable
      * @var array
      */
     protected $casts = [
-        "uuid" => "string",
-        "device_id" => "integer",
         "organization_id" => "integer",
+        "uuid" => "string",
+        "device_id" => "string",
         "name" => "string",
         "description" => "string",
         "tv_data" => "object",
@@ -46,7 +46,6 @@ class Screen extends Authenticatable implements Auditable
         "created_at",
         "updated_at",
     ];
-
 
     protected $guarded = [
         "id"

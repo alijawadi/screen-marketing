@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('screens', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->nullable()->unique();
+            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->uuid()->unique();
             $table->string('device_id')->nullable();
-            $table->foreignId('organization_id')->nullable()->constrained("organizations","id")->cascadeOnDelete()->cascadeOnUpdate();
-
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->jsonb('tv_data')->nullable();
+            $table->json('tv_data')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
