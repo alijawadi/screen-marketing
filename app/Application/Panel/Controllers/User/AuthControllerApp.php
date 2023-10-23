@@ -36,11 +36,13 @@ class AuthControllerApp extends PanelAppBaseController
     public function login(LoginUserRequest $request): Response
     {
         $authDTO = LoginUserAction::run(UserDTO::from($request));
+
         if (!$authDTO) {
             throw ValidationException::withMessages([
-                'password' => ['The provided password is incorrect.'],
+                'password' => ['The provided credential is incorrect.'],
             ]);
         }
+
         return new SuccessResponse($authDTO);
     }
 }
