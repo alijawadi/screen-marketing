@@ -22,15 +22,15 @@ Route::post('/user/login', [AuthControllerApp::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::prefix('screen')->group(function () {
+        Route::get('/list', [ScreenController::class, 'index']);
+        Route::post('/add', [ScreenController::class, 'add']);
+    });
+
     Route::prefix('template')->group(function () {
         Route::get('/list', [TemplateController::class, 'index']);
         Route::post('/store', [TemplateController::class, 'store']);
         Route::post('/update', [TemplateController::class, 'update']);
-    });
-
-    Route::prefix('screen')->group(function () {
-        Route::get('/list', [ScreenController::class, 'index']);
-        Route::post('/add', [ScreenController::class, 'add']);
     });
 
     Route::prefix('media')->group(function () {
