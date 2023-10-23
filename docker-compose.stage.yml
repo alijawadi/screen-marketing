@@ -30,11 +30,12 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik-web
-      - traefik.http.routers.caddy-screen-apis.rule=Host(`apis.screen.selectedstartups.com`)
-      - traefik.http.routers.caddy-screen-apis.entrypoints=https
-      - traefik.http.middlewares.caddy-screen-apis.redirectscheme.scheme=https
-      - traefik.http.middlewares.caddy-screen-apis.redirectscheme.permanent=true
-      - traefik.http.routers.caddy-screen-apis.tls.certresolver=myresolver
+      - traefik.http.routers.screen-apis.rule=Host(`apis.screen.selectedstartups.com`)
+      - traefik.http.routers.screen-apis.service=caddy-screen-apis
+      - traefik.http.routers.screen-apis.entrypoints=https
+      - traefik.http.middlewares.screen-apis.redirectscheme.scheme=https
+      - traefik.http.middlewares.screen-apis.redirectscheme.permanent=true
+      - traefik.http.routers.screen-apis.tls.certresolver=myresolver
     volumes:
       - .:/srv
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
