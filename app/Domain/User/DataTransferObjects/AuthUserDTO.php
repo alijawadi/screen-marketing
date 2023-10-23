@@ -2,7 +2,9 @@
 
 namespace App\Domain\User\DataTransferObjects;
 
-class AuthUserDTO extends \Spatie\LaravelData\Data
+use Spatie\LaravelData\Data;
+
+class AuthUserDTO extends Data
 {
     public function __construct(
         public string $token
@@ -11,8 +13,8 @@ class AuthUserDTO extends \Spatie\LaravelData\Data
     }
 
 
-    public static function fromString(string $token): self
-    {
-        return new self($token);
-    }
+//    public static function fromString(string $token): self
+//    {
+//        return new self($token);
+//    }
 }
