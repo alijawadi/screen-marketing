@@ -11,10 +11,18 @@ class CheckPairingStatusAction
 {
     use AsAction;
 
-    public function handle(string $pairingCode)
+    public function handle(string $code)
     {
-        $pairingCode = PairingCode::where('code', $pairingCode)->firstOrFail();
-        $screen = Screen::findOrFail($pairingCode->screen_id);
+        /** @var PairingCode $pairingCode */
+        $pairingCode = PairingCode::query()->where('code',"=", $code)->first();
+
+        if (!$pairingCode->organization_id){
+            return null;
+        }
+
+        /** @var Screen $screen */
+        $screen = Screen::query()->find($pairingCode->screen_id);
+
         return AuthenticateScreen::run($screen)->plainTextToken;
     }
 }
