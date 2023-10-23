@@ -1,6 +1,4 @@
-{$SERVER_NAME}
-
-localhost {
+localhost, caddy:80 {
     root * /srv/public
     php_fastcgi php:9000 {
         root /var/www/public
