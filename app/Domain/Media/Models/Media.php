@@ -15,6 +15,7 @@ class Media extends Model implements HasMedia
     protected $table = "media";
 
     protected $fillable = [
+        "organization_id",
         "created_by",
         "updated_by",
         "uuid",
@@ -40,6 +41,7 @@ class Media extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
+        "organization_id" => "integer",
         "created_by" => "integer",
         "updated_by" => "integer",
         "uuid" => "string",
