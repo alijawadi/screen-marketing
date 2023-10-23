@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->uuid()->nullable()->unique();
             $table->string('device_id')->nullable();
-            $table->foreignId('organization_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('organization_id')->nullable()->constrained("organizations","id")->cascadeOnDelete()->cascadeOnUpdate();
+
             $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->jsonb('tv_data')->nullable();
+
             $table->timestamps();
         });
     }

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,9 +12,11 @@ return new class extends Migration
     {
         Schema::create('pairing_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('screen_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('organization_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('screen_id')->constrained("screens", "id")->cascadeOnDelete();
+            $table->foreignId('organization_id')->nullable()->constrained("organizations", "id")->cascadeOnDelete();
+
             $table->string('code')->index();
+
             $table->timestamps();
         });
     }
