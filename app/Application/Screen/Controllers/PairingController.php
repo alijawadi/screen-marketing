@@ -3,12 +3,13 @@
 namespace App\Application\Screen\Controllers;
 
 use App\Application\Screen\Requests\CodeCheckRequest;
-use App\Application\Screen\Requests\GenerateCodeRequest;
+use App\Application\Screen\Requests\CreateScreenRequest;
 use App\Application\Shared\Responses\SuccessResponse;
-use App\Domain\Screen\DataTransferObjects\ScreenDTO;
 use Domain\Screen\Actions\CheckPairingStatusAction;
 use Domain\Screen\Actions\CreateScreenAction;
 use Domain\Screen\Actions\GeneratePairingCodeAction;
+use Domain\Screen\Models\PairingCode;
+use Domain\Screen\Models\Screen;
 use Illuminate\Http\Response;
 
 class PairingController extends ScreenAppBaseController
@@ -18,10 +19,14 @@ class PairingController extends ScreenAppBaseController
      *
      * @return Response
      */
-    public function generateCode(GenerateCodeRequest $request): Response
+    public function generateCode(CreateScreenRequest $request): Response
     {
+        /** @var Screen $screen */
         $screen = CreateScreenAction::run($request->all());
-        $pairingCode = GeneratePairingCodeAction::run(ScreenDTO::from($screen));
+
+        /** @var PairingCode $pairingCode */
+        $pairingCode = GeneratePairingCodeAction::run($screen->id);
+
         return new SuccessResponse(['code' => $pairingCode->code], 201);
     }
 
