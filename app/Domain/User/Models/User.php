@@ -2,9 +2,7 @@
 
 namespace Domain\User\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Domain\User\DataTransferObjects\UserDTO;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,8 +24,9 @@ class User extends Authenticatable implements Auditable
         "uuid",
         "name",
         "email",
-        "email_verified_at",
         "password",
+        "email_verified_at",//nullable
+        "is_organization_owner",
     ];
 
     /**
@@ -42,8 +41,9 @@ class User extends Authenticatable implements Auditable
         "uuid" => "string",
         "name" => "string",
         "email" => "integer",
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'email_verified_at' => 'datetime',
+        'is_organization_owner' => 'boolean',
     ];
 
     protected $dates = [
@@ -61,8 +61,6 @@ class User extends Authenticatable implements Auditable
         'remember_token',
     ];
 
-    protected string $dataClass = UserDTO::class;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -71,6 +69,9 @@ class User extends Authenticatable implements Auditable
     protected $guarded = [
         'id'
     ];
+
+
+    protected string $dataClass = UserDTO::class;
 
 
     public function organization(): BelongsTo

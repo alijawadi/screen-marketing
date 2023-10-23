@@ -12,13 +12,15 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->uuid()->nullable()->unique();
+            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->uuid()->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->foreignId('organization_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->text('password');
+            $table->boolean('is_organization_owner');
+
             $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }
