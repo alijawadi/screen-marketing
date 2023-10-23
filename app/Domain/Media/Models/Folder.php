@@ -14,13 +14,13 @@ class Folder extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, HasUuid;
 
-    protected $table = 'folders';
+    protected $table = "folders";
 
     protected $fillable = [
-        'created_by',
-        'updated_by',
-        'uuid',
-        'name',
+        "created_by",
+        "updated_by",
+        "uuid",
+        "name",
     ];
 
     /**
@@ -44,13 +44,13 @@ class Folder extends Model implements HasMedia
     ];
 
     protected $guarded = [
-        'id'
+        "id"
     ];
 
     public function registerMediaConversions(SpatieMedia $media = null): void
     {
         $this
-            ->addMediaConversion('preview')
+            ->addMediaConversion("preview")
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued();
     }
