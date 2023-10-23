@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: screen-api-php
+        container_name: screen-apis-php
         restart: unless-stopped
         tty: true
         volumes:
@@ -16,30 +16,30 @@ services:
             SERVICE_NAME: php
             SERVICE_TAGS: dev
         networks:
-            - screens-api-net
+            - screen-apis-net
         depends_on:
             - db
 
     #Caddy Service
     caddy:
         image: caddy:2.7.5-alpine
-        container_name: screens-api-caddy
+        container_name: screen-apis-caddy
         ports:
             - "80:80"
             - "443:443"
         volumes:
             - .:/srv
             - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-            - ./caddy/logs/:/var/log/caddy:wr
+            - ./caddy/logs/:/var/log/caddy
         networks:
-            - screens-api-net
+            - screen-apis-net
         depends_on:
             - php
 
         #Mercure Service
     mercure:
         image: dunglas/mercure
-        container_name: screens-api-mercure
+        container_name: screen-apis-mercure
         environment:
             DEBUG: debug
             SERVER_NAME: ':80'
@@ -47,31 +47,31 @@ services:
             MERCURE_SUBSCRIBER_JWT_KEY: ~my-jwt-key-here~
             MERCURE_EXTRA_DIRECTIVES: "cors_origins \"http://127.0.0.1\"\nanonymous"
         networks:
-            - screens-api-net
+            - screen-apis-net
         ports:
             - '9009:80'
 
     #Postgres Service
     db:
         image: postgres:16.0-alpine
-        container_name: screens-api-db
+        container_name: screen-apis-db
         environment:
             - POSTGRES_DB=screen_db
             - POSTGRES_PASSWORD=postgres
             - POSTGRES_USER=postgres
         volumes:
-            - db_data:/var/lib/postgresql/data:rw
+            - dbdata:/var/lib/postgresql/data
         ports:
             - 5432:5432
         networks:
-            - screens-api-net
+            - screen-apis-net
 
 #Docker Networks
 networks:
-    screens-api-net:
+    screen-apis-net:
 
 #Volumes
 volumes:
-    db_data:
+    dbdata:
     vendor:
     caddy:
