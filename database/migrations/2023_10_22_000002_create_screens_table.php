@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->json('tv_data')->nullable();
+            $table->json('setting')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

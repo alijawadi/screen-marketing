@@ -24,6 +24,7 @@ class Screen extends Authenticatable implements Auditable
         "name",//nullable
         "description",//nullable
         "tv_data",//nullable
+        "setting",//nullable
     ];
 
     /**
@@ -40,6 +41,7 @@ class Screen extends Authenticatable implements Auditable
         "name" => "string",
         "description" => "string",
         "tv_data" => "object",
+        "setting" => "object",
     ];
 
     protected $dates = [
