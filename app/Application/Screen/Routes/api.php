@@ -20,9 +20,7 @@ Route::middleware(["throttle:api_20"])->group(function () {
     Route::post('/code/check', [PairingController::class, 'checkCode']);
 });
 
-//todo production: move this route to auth group
-Route::post('/screen/update', [ScreenDataController::class, 'update']);
-
-Route::middleware('auth:sanctum')->group(function () {
-
+Route::middleware(['auth:screen', "throttle:api_1000"])->group(function () {
+    Route::post('/update', [ScreenDataController::class, 'update']);
 });
+
