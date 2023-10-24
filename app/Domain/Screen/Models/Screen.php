@@ -3,6 +3,7 @@
 namespace Domain\Screen\Models;
 
 use Domain\User\Models\Organization;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,8 @@ class Screen extends Authenticatable implements Auditable
 
     protected $fillable = [
         "organization_id",//nullable
+        "created_by",//nullable
+        "updated_by",//nullable
         "uuid",
         "device_id",//nullable
         "name",//nullable
@@ -38,6 +41,8 @@ class Screen extends Authenticatable implements Auditable
      */
     protected $casts = [
         "organization_id" => "integer",
+        "created_by" => "integer",
+        "updated_by" => "integer",
         "uuid" => "string",
         "device_id" => "string",
         "name" => "string",
@@ -65,7 +70,17 @@ class Screen extends Authenticatable implements Auditable
 
     public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class,"organization_id");
+        return $this->belongsTo(Organization::class, "organization_id");
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "created_by");
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "updated_by");
     }
 
 
