@@ -2,7 +2,6 @@
 
 use App\Application\Screen\Controllers\PairingController;
 use App\Application\Screen\Controllers\ScreenDataController;
-use Domain\Screen\Actions\CheckPairingStatusAction;
 use Illuminate\Support\Facades\Route;
 
 /*
