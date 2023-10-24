@@ -18,8 +18,12 @@ class Template extends Model implements HasMedia
     protected $table = "templates";
 
     protected $fillable = [
+        "organization_id",
+        "created_by",
+        "updated_by",
         "name",
-        "data",
+        "templates",
+        "store",
     ];
 
     /**
@@ -30,8 +34,12 @@ class Template extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
+        "organization_id" => "integer",
+        "created_by" => "integer",
+        "updated_by" => "integer",
         "name" => "string",
-        "data" => "object",
+        "templates" => "object",
+        "store" => "object",
     ];
 
     protected $dates = [

@@ -14,12 +14,13 @@ return new class extends Migration {
         //custom-template
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
-           // $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
-           // $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
-           // $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
 
             $table->string('name', 50);
-            $table->json('data')->nullable();
+            $table->json('templates')->nullable();
+            $table->json('store')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
