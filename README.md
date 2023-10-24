@@ -4,6 +4,10 @@
     git push --set-upstream origin branch_name
     git fetch --all
 
+# URL:
+    https://apisscreen.selectedstartups.com/api
+    https://apisscreen.selectedstartups.com:9009/.well-known/mercure
+
 # local installation:
     docker-compose build
     docker-compose up --build
@@ -12,7 +16,7 @@
     docker-compose down -v
     docker-compose ps
     docker-compose ps -a
-    docker exec -it screen-api-php /bin/bash
+    docker exec -it screen-apis-php /bin/bash
         apt update -y
         apt upgrade -y
         apt install npm nano -y
