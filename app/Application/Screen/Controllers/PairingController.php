@@ -23,7 +23,7 @@ class PairingController extends ScreenAppBaseController
     public function generateCode(CreateScreenRequest $request): Response
     {
         /** @var Screen $screen */
-        $screen = CreateScreenAction::run($request->all());
+        $screen = CreateScreenAction::run($request->validated());
 
         /** @var PairingCode $pairingCode */
         $pairingCode = GeneratePairingCodeAction::run($screen->id);
