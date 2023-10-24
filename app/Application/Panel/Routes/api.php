@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/user/register', [AuthControllerApp::class, 'register']);
-Route::post('/user/login', [AuthControllerApp::class, 'login']);
+Route::middleware(["throttle:api_10"])->group(function () {
+    Route::post('/user/register', [AuthControllerApp::class, 'register']);
+    Route::post('/user/login', [AuthControllerApp::class, 'login']);
+});
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', "throttle:api_1000"])->group(function () {
 
     Route::prefix('screen')->group(function () {
         Route::get('/list', [ScreenController::class, 'index']);
