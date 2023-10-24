@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::middleware(["throttle:api_10"])->group(function () {
+Route::middleware(["throttle:api_20"])->group(function () {
     Route::post('/code/generate', [PairingController::class, 'generateCode']);
     Route::post('/code/check', [PairingController::class, 'checkCode']);
 });
