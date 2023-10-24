@@ -14,28 +14,23 @@ class AssignScreenAction
 {
     use AsAction;
 
-    public function handle(AddScreenDTO $addScreenDTO)
+    public function handle(array $data)
     {
         /** @var PairingCode $pairingCode */
-        $pairingCode = PairingCode::query()->where('code', $addScreenDTO->code)->first();
+        $pairingCode = PairingCode::query()->where('code', $data["code"])->first();
 
         /** @var Screen $screen */
         $screen = Screen::query()->find($pairingCode->screen_id);
 
         $screen->update([
-            "organization_id" => $addScreenDTO->organization_id
+            "organization_id" => $data["organization_id"],
         ]);
 
         $pairingCode->update([
-            "organization_id" => $addScreenDTO->organization_id
+            "organization_id" => $data["organization_id"],
         ]);
 
-        $topic = $pairingCode->code;
-        $message = json_encode(['token' => AuthenticateScreen::run($screen)]);
-
         Broadcast::event(new ScreenAddedToOrganizationEvent($pairingCode->code));
-//        ScreenAddedToOrganizationEvent::dispatch($topic, $message);
-//        MercurePublish::run($topic, $message);
     }
 
 }
