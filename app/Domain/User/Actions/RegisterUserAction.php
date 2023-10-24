@@ -3,7 +3,7 @@
 namespace Domain\User\Actions;
 
 use App\Domain\Media\Models\Folder;
-use App\Domain\User\DataTransferObjects\AuthUserDTO;
+use App\Domain\Media\Models\Template;
 use Domain\User\Models\Organization;
 use Domain\User\Models\User;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -39,6 +39,15 @@ class RegisterUserAction
 
         /** @var User $user */
         $user = User::query()->create($data);
+
+        Template::query()->create([
+            "organization_id" => $organization->id,
+            "created_by" => $user->id,
+            "updated_by" => null,
+            "name" => "Template",
+            "templates" => [],
+            "store" => [],
+        ]);
 
         return $user->createToken('register')->plainTextToken;
     }
