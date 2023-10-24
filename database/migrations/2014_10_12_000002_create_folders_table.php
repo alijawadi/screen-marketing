@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('folders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->uuid()->unique();
             $table->string('name');
 

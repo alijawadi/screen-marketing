@@ -3,6 +3,7 @@
 namespace App\Domain\Media\Models;
 
 use Domain\User\Models\Organization;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,6 +21,8 @@ class Folder extends Model implements HasMedia
 
     protected $fillable = [
         "organization_id",
+        "created_by",//nullable
+        "updated_by",//nullable
         "uuid",
         "name",
     ];
@@ -33,6 +36,8 @@ class Folder extends Model implements HasMedia
      */
     protected $casts = [
         "organization_id" => "integer",
+        "created_by" => "integer",
+        "updated_by" => "integer",
         "uuid" => "string",
         "name" => "string",
     ];
@@ -59,5 +64,16 @@ class Folder extends Model implements HasMedia
     {
         return $this->belongsTo(Organization::class, "organization_id");
     }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "created_by");
+    }
+
+    public function updatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "updated_by");
+    }
+
 
 }
