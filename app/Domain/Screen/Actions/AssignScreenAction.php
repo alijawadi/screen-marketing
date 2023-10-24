@@ -2,8 +2,6 @@
 
 namespace Domain\Screen\Actions;
 
-use App\Domain\Screen\Actions\AuthenticateScreen;
-use App\Domain\Screen\DataTransferObjects\AddScreenDTO;
 use App\Domain\Screen\Events\ScreenAddedToOrganizationEvent;
 use Domain\Screen\Models\PairingCode;
 use Domain\Screen\Models\Screen;
