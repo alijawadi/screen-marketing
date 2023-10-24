@@ -9,7 +9,7 @@ class PlaylistItem extends Model
 {
     use HasFactory;
 
-    protected $table = "playlists";
+    protected $table = "playlist_items";
 
     protected $fillable = [
         "playlist_id",
@@ -17,6 +17,7 @@ class PlaylistItem extends Model
         "updated_by",
         "item_type",
         "duration",
+        "repeat_type", //no - daily - weekly - monthly - yearly - custom
         "order_column",
     ];
 
@@ -34,6 +35,7 @@ class PlaylistItem extends Model
         "playlist_id" => "integer",
         "item_type" => "string",
         "duration" => "integer",
+        "repeat_type" => "string",
         "order_column" => "integer",
     ];
 

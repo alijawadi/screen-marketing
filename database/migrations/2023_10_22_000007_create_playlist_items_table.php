@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('media_items', function (Blueprint $table) {
+        Schema::create('playlist_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('playlist_id')->constrained("playlists","id")->cascadeOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
@@ -18,6 +18,7 @@ return new class extends Migration {
 
             $table->string('item_type');
             $table->unsignedInteger('duration');
+            $table->string('repeat_type');//no - daily - weekly - monthly - yearly - custom
             $table->unsignedInteger('order_column');
 
             $table->timestamps();
@@ -30,6 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('media_items');
+        Schema::dropIfExists('playlist_items');
     }
 };
