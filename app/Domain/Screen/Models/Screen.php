@@ -2,8 +2,10 @@
 
 namespace Domain\Screen\Models;
 
+use Domain\User\Models\Organization;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -60,4 +62,11 @@ class Screen extends Authenticatable implements Auditable
             set: fn($value) => json_encode($value),
         );
     }
+
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class,"organization_id");
+    }
+
+
 }
