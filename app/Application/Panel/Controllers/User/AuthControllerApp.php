@@ -22,7 +22,8 @@ class AuthControllerApp extends PanelAppBaseController
      */
     public function register(RegisterUserRequest $request): Response
     {
-        $authDTO = RegisterUserAction::run(UserDTO::from($request));
+        $authDTO = RegisterUserAction::run($request->validated());
+
         return new SuccessResponse($authDTO, 201);
     }
 

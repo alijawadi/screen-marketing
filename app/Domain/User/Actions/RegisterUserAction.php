@@ -16,7 +16,7 @@ class RegisterUserAction
     /**
      * @unauthenticated
      */
-    public function handle(UserDTO $data): AuthUserDTO
+    public function handle(array $data): AuthUserDTO
     {
         /** @var Organization $organization */
         $organization = Organization::query()
@@ -33,17 +33,13 @@ class RegisterUserAction
                 "name" => "root",
             ]);
 
+        $data["organization_id"] = $organization->id;
+        $data["uuid"] = null;
+        $data["email_verified_at"] = null;
+        $data["is_organization_owner"] = true;
+
         /** @var User $user */
-        $user = User::query()
-            ->create([
-                "organization_id" => $organization->id,
-                "uuid" => null,
-                "name" => $data->name,
-                "email" => $data->email,
-                "password" => $data->password,
-                "email_verified_at" => null,
-                "is_organization_owner" => true,
-            ]);
+        $user = User::query()->create($data);
 
         return AuthUserDTO::from(["token" => $user->createToken('register')->plainTextToken]);
     }
