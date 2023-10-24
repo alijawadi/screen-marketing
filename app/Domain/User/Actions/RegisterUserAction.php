@@ -20,6 +20,7 @@ class RegisterUserAction
         /** @var Organization $organization */
         $organization = Organization::query()
             ->create([
+                "owner_id" => null,
                 "name" => "Organization",
                 "description" => null,
             ]);
@@ -38,6 +39,10 @@ class RegisterUserAction
 
         /** @var User $user */
         $user = User::query()->create($data);
+
+        $organization->update([
+            "owner_id" => $user->id,
+        ]);
 
         Template::query()->create([
             "organization_id" => $organization->id,
