@@ -43,11 +43,10 @@ services:
         environment:
             DEBUG: "debug"
             SERVER_NAME: ':80'
-            MERCURE_PUBLISHER_JWT_KEY: qwertyuiopasdfghjklzxcvbnm123456
-            MERCURE_SUBSCRIBER_JWT_KEY: ~my-jwt-key-here~
+            MERCURE_PUBLISHER_JWT_KEY: hnfudefhy98eyfhehfe9r84r89hdfhfe8fe8fh89e
+            MERCURE_SUBSCRIBER_JWT_KEY: hnfudefhy98eyfhehfe9r84r89hdfhfe8fe8fh89e
             MERCURE_EXTRA_DIRECTIVES: |-
                 cors_origins *
-                anonymous
         networks:
             - screen-apis-net
         ports:

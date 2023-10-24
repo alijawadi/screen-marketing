@@ -14,8 +14,9 @@
     //     console.log(e);
     // });
 
-    //const url = new URL("http://127.0.0.1:9009/.well-known/mercure");
-    const url = new URL("http://apisscreen.selectedstartups.com:9009/.well-known/mercure");
+    const url = new URL("http://127.0.0.1:9009/.well-known/mercure");
+    // const url = new URL("http://apisscreen.selectedstartups.com:9009/.well-known/mercure");
+    url.searchParams.append('authorization', "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsiKiJdfX0.77WrVyBANnTtBtvzQrK3DqaXveVqTxRxBDqxSfKbYZg");
     url.searchParams.append('topic', 'screen_added');
     const es = new EventSource(url, {withCredentials: false});
     es.onmessage = (msg) => {
