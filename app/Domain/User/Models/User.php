@@ -3,8 +3,11 @@
 namespace Domain\User\Models;
 
 use App\Domain\User\DataTransferObjects\UserDTO;
+use Domain\Screen\Models\Screen;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -73,6 +76,11 @@ class User extends Authenticatable implements Auditable
 
     protected string $dataClass = UserDTO::class;
 
+
+    public function mainOrganization(): HasOne
+    {
+        return $this->hasOne(Organization::class, "owner_id", "id");
+    }
 
     public function organization(): BelongsTo
     {
