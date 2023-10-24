@@ -45,7 +45,7 @@ class PairingController extends ScreenAppBaseController
         $token = CheckPairingStatusAction::run($request->get("code"));
 
         if (!$token){
-            return new ErrorResponse("code is not assigned to any account.",406);
+            return new ErrorResponse("Code is not assigned to any account.",406);
         }
 
         return new SuccessResponse(['token' => $token]);
