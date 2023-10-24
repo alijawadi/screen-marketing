@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::post('/code/generate', [PairingController::class, 'generateCode']);
-Route::post('/code/check', [PairingController::class, 'checkCode']);
-
+Route::middleware(["throttle:api_10"])->group(function () {
+    Route::post('/code/generate', [PairingController::class, 'generateCode']);
+    Route::post('/code/check', [PairingController::class, 'checkCode']);
+});
 
 //todo production: move this route to auth group
 Route::post('/screen/update', [ScreenDataController::class, 'update']);
