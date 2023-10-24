@@ -1,3 +1,8 @@
+# git
+    git branch branch_name
+    git checkout branch_name
+    git push --set-upstream origin branch_name
+    git fetch --all
 
 # local installation:
     docker-compose build
