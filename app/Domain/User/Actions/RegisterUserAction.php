@@ -25,13 +25,6 @@ class RegisterUserAction
                 "description" => null,
             ]);
 
-        Folder::query()
-            ->create([
-                "organization_id" => $organization->id,
-                "uuid" => null,
-                "name" => "root",
-            ]);
-
         $data["organization_id"] = $organization->id;
         $data["uuid"] = null;
         $data["email_verified_at"] = null;
@@ -39,6 +32,15 @@ class RegisterUserAction
 
         /** @var User $user */
         $user = User::query()->create($data);
+
+        Folder::query()
+            ->create([
+                "organization_id" => $organization->id,
+                "created_by" => $user->id,
+                "updated_by" => null,
+                "uuid" => null,
+                "name" => "root",
+            ]);
 
         $organization->update([
             "owner_id" => $user->id,
