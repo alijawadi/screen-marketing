@@ -15,12 +15,9 @@ class Template extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $table = "playlists";
+    protected $table = "templates";
 
     protected $fillable = [
-        "organization_id",
-        "created_by",
-        "updated_by",
         "name",
         "data",
     ];
@@ -33,9 +30,6 @@ class Template extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
-        "organization_id" => "integer",
-        "created_by" => "integer",
-        "updated_by" => "integer",
         "name" => "string",
         "data" => "object",
     ];
