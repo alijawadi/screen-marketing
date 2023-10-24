@@ -24,8 +24,7 @@ class RegisterUserAction
                 "description" => null,
             ]);
 
-        /** @var Folder $folder */
-        $folder = Folder::query()
+        Folder::query()
             ->create([
                 "organization_id" => $organization->id,
                 "uuid" => null,
