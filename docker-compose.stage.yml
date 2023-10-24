@@ -58,11 +58,13 @@ services:
       SERVER_NAME: ":80"
       MERCURE_PUBLISHER_JWT_KEY: qwertyuiopasdfghjklzxcvbnm123456
       MERCURE_SUBSCRIBER_JWT_KEY: ~my-jwt-key-here~
-      MERCURE_EXTRA_DIRECTIVES: "cors_origins \"http://127.0.0.1\"\nanonymous"
+      MERCURE_EXTRA_DIRECTIVES: |-
+        cors_origins *
+        anonymous
     networks:
       - screen-apis-net
-    # ports:
-    #     - '9009:80'
+    ports:
+      - '9009:80'
 
   #Postgres Service
   db:
