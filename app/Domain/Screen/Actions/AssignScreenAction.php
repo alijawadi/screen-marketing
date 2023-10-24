@@ -33,7 +33,7 @@ class AssignScreenAction
         $topic = $pairingCode->code;
         $message = json_encode(['token' => AuthenticateScreen::run($screen)]);
 
-        Broadcast::event(new ScreenAddedToOrganizationEvent($topic, $message));
+        Broadcast::event(new ScreenAddedToOrganizationEvent($pairingCode->code));
 //        ScreenAddedToOrganizationEvent::dispatch($topic, $message);
 //        MercurePublish::run($topic, $message);
     }
