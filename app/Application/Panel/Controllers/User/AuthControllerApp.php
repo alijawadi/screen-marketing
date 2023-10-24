@@ -5,6 +5,7 @@ namespace App\Application\Panel\Controllers\User;
 use App\Application\Panel\Controllers\PanelAppBaseController;
 use App\Application\Panel\Requests\LoginUserRequest;
 use App\Application\Panel\Requests\RegisterUserRequest;
+use App\Application\Shared\Responses\ErrorResponse;
 use App\Application\Shared\Responses\SuccessResponse;
 use App\Domain\User\DataTransferObjects\UserDTO;
 use Domain\User\Actions\LoginUserAction;
@@ -36,14 +37,12 @@ class AuthControllerApp extends PanelAppBaseController
      */
     public function login(LoginUserRequest $request): Response
     {
-        $authDTO = LoginUserAction::run(UserDTO::from($request));
+        $token = LoginUserAction::run($request->validated());
 
-        if (!$authDTO) {
-            throw ValidationException::withMessages([
-                'password' => ['The provided credential is incorrect.'],
-            ]);
+        if (!$token) {
+            return new ErrorResponse("The provided credential is incorrect.", 401);
         }
 
-        return new SuccessResponse($authDTO);
+        return new SuccessResponse(["token" => $token]);
     }
 }

@@ -12,15 +12,15 @@ class LoginUserAction
 {
     use AsAction;
 
-    public function handle(UserDTO $userDTO): ?AuthUserDTO
+    public function handle(array $userDTO): string|null
     {
         $user = User::query()
-            ->where('email', "=", $userDTO->email)->first();
+            ->where('email', "=", $userDTO["email"])->first();
 
-        if (!$user || !Hash::check($userDTO->password, $user->password)) {
+        if (!$user || !Hash::check($userDTO["password"], $user->password)) {
             return null;
         }
 
-        return AuthUserDTO::from(["token" => $user->createToken('login')->plainTextToken]);
+        return $user->createToken('login')->plainTextToken;
     }
 }
