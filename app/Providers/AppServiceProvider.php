@@ -28,11 +28,5 @@ class AppServiceProvider extends ServiceProvider
                 SecurityScheme::http('bearer', 'JWT')
             );
         });
-
-        //todo write it cleaner
-//        Blueprint::macro('audits', function () {
-//            $this->foreignId('created_by')->nullable()->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
-//            $this->foreignId('updated_by')->nullable()->constrained('users', 'id')->cascadeOnDelete()->cascadeOnUpdate();
-//        });
     }
 }
