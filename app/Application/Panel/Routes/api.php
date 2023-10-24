@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/qq', function (){
+    return view("test_mercure");
+});
+
 Route::middleware(["throttle:api_20"])->group(function () {
     Route::post('/user/register', [AuthControllerApp::class, 'register']);
     Route::post('/user/login', [AuthControllerApp::class, 'login']);
