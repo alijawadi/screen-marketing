@@ -7,7 +7,6 @@ use App\Application\Panel\Requests\LoginUserRequest;
 use App\Application\Panel\Requests\RegisterUserRequest;
 use App\Application\Shared\Responses\ErrorResponse;
 use App\Application\Shared\Responses\SuccessResponse;
-use App\Domain\User\DataTransferObjects\UserDTO;
 use Domain\User\Actions\LoginUserAction;
 use Domain\User\Actions\RegisterUserAction;
 use Illuminate\Http\Response;
@@ -23,9 +22,9 @@ class AuthControllerApp extends PanelAppBaseController
      */
     public function register(RegisterUserRequest $request): Response
     {
-        $authDTO = RegisterUserAction::run($request->validated());
+        $token = RegisterUserAction::run($request->validated());
 
-        return new SuccessResponse($authDTO, 201);
+        return new SuccessResponse(["token" => $token], 201);
     }
 
     /**

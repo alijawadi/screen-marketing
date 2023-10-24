@@ -4,7 +4,6 @@ namespace Domain\User\Actions;
 
 use App\Domain\Media\Models\Folder;
 use App\Domain\User\DataTransferObjects\AuthUserDTO;
-use App\Domain\User\DataTransferObjects\UserDTO;
 use Domain\User\Models\Organization;
 use Domain\User\Models\User;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -16,7 +15,7 @@ class RegisterUserAction
     /**
      * @unauthenticated
      */
-    public function handle(array $data): AuthUserDTO
+    public function handle(array $data): string
     {
         /** @var Organization $organization */
         $organization = Organization::query()
@@ -41,7 +40,7 @@ class RegisterUserAction
         /** @var User $user */
         $user = User::query()->create($data);
 
-        return AuthUserDTO::from(["token" => $user->createToken('register')->plainTextToken]);
+        return $user->createToken('register')->plainTextToken;
     }
 
 }
