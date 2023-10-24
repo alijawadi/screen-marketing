@@ -7,6 +7,7 @@ use App\Domain\Media\Models\Template;
 use Domain\Screen\Models\Screen;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OwenIt\Auditing\Contracts\Auditable;
 use \OwenIt\Auditing\Auditable as AuditableTrait;
@@ -18,6 +19,7 @@ class Organization extends Model implements Auditable
     protected $table = "organizations";
 
     protected $fillable = [
+        "owner_id",
         "name",
         "description",//nullable
     ];
@@ -30,6 +32,7 @@ class Organization extends Model implements Auditable
      * @var array
      */
     protected $casts = [
+        "owner_id" => "integer",
         "name" => "string",
         "description" => "string",
     ];
@@ -62,6 +65,11 @@ class Organization extends Model implements Auditable
     public function screens(): HasMany
     {
         return $this->hasMany(Screen::class, "organization_id", "id");
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "owner_id");
     }
 
 }
