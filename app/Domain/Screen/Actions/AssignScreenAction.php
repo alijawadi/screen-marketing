@@ -22,6 +22,7 @@ class AssignScreenAction
 
         $screen->update([
             "organization_id" => $data["organization_id"],
+            "created_by" => $data["created_by"],
         ]);
 
         $pairingCode->update([

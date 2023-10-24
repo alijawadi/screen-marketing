@@ -36,6 +36,7 @@ class ScreenController extends PanelAppBaseController
     {
         $data = $request->validated();
         $data["organization_id"] = $request->user()->organization_id;
+        $data["created_by"] = $request->user()->id;
 
         AssignScreenAction::run($data);
 
