@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -33,11 +34,11 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
 
-            Route::middleware('api')
+            Route::middleware([EnsureFrontendRequestsAreStateful::class])
                 ->prefix('api/screen')
                 ->group(app_path('Application/Screen/Routes/api.php'));
 
-            Route::middleware('api')
+            Route::middleware([EnsureFrontendRequestsAreStateful::class])
                 ->prefix('api/panel')
                 ->group(app_path('Application/Panel/Routes/api.php'));
 
