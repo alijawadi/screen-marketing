@@ -2,6 +2,7 @@
 
 namespace Domain\User\Models;
 
+use App\Domain\Media\Models\Folder;
 use App\Domain\Media\Models\Template;
 use App\Domain\User\DataTransferObjects\UserDTO;
 use Domain\Screen\Models\Screen;
@@ -96,6 +97,16 @@ class User extends Authenticatable implements Auditable
     public function updatedScreens(): HasMany
     {
         return $this->hasMany(Screen::class, "updated_by", "id");
+    }
+
+    public function createdFolders(): HasMany
+    {
+        return $this->hasMany(Folder::class, "created_by", "id");
+    }
+
+    public function updatedFolders(): HasMany
+    {
+        return $this->hasMany(Folder::class, "updated_by", "id");
     }
 
     public function mainOrganization(): HasOne
