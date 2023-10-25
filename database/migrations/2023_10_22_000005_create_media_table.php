@@ -10,7 +10,6 @@ return new class extends Migration {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
             $table->foreignId('organization_id')->constrained("organizations", "id")->cascadeOnDelete();
-            // $table->morphs('model');
             $table->foreignId('created_by')->constrained('users', 'id')->nullOnDelete();
             $table->foreignId('updated_by')->constrained('users', 'id')->nullOnDelete();
 
