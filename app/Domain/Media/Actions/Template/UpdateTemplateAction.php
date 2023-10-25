@@ -2,8 +2,6 @@
 
 namespace App\Domain\Media\Actions\Template;
 
-use App\Domain\Media\DataTransferObjects\TemplateDTO;
-use App\Domain\Media\DataTransferObjects\TemplateStoreDTO;
 use App\Domain\Media\Models\Template;
 use Lorisleiva\Actions\Concerns\AsObject;
 
@@ -11,15 +9,13 @@ class UpdateTemplateAction
 {
     use AsObject;
 
-    public function handle(TemplateStoreDTO $templateStoreDTO): TemplateDTO
+    public function handle(int $organization_id, array $data)
     {
-        $template = Template::find($templateStoreDTO->id);
-        $template->update($templateStoreDTO->except("id")->toArray());
+        /** @var Template $template */
+        $template = Template::query()
+            ->where("organization_id", "=", $organization_id)
+            ->first();
 
-        // todo: add the new one, then delete the old one.
-        $template->clearMediaCollection();
-        $template->addMediaFromBase64($templateStoreDTO->file)->toMediaCollection();
-
-        return TemplateDTO::from($template);
+        $template->update($data);
     }
 }

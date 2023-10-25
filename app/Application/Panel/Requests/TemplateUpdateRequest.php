@@ -15,17 +15,13 @@ class TemplateUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => [
-                "required",
-                Rule::exists('templates', 'id')->whereNull('deleted_at')
-            ],
-            "file" => [
+            "templates" => [
                 "nullable",
-                "image64",
+                "array"
             ],
-            "data" => [
+            "store" => [
                 "nullable",
-                "string"
+                "array"
             ]
         ];
     }
