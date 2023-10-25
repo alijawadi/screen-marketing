@@ -17,21 +17,28 @@ class RegisterUserAction
      */
     public function handle(array $data): string
     {
+        $data["parent_id"] = null;
+        $data["organization_id"] = null;
+        $data["uuid"] = null;
+        $data["email_verified_at"] = null;
+        $data["is_organization_owner"] = true;
+        $data["roles"] = [];
+        $data["accesses"] = [];
+
+        /** @var User $user */
+        $user = User::query()->create($data);
+
         /** @var Organization $organization */
         $organization = Organization::query()
             ->create([
-                "owner_id" => null,
+                "owner_id" => $user->id,
                 "name" => "Organization",
                 "description" => null,
             ]);
 
-        $data["organization_id"] = $organization->id;
-        $data["uuid"] = null;
-        $data["email_verified_at"] = null;
-        $data["is_organization_owner"] = true;
-
-        /** @var User $user */
-        $user = User::query()->create($data);
+        $user->update([
+            "organization_id" => $organization->id,
+        ]);
 
         Folder::query()
             ->create([
@@ -41,10 +48,6 @@ class RegisterUserAction
                 "uuid" => null,
                 "name" => "root",
             ]);
-
-        $organization->update([
-            "owner_id" => $user->id,
-        ]);
 
         Template::query()->create([
             "organization_id" => $organization->id,
