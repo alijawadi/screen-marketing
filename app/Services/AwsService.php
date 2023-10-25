@@ -56,9 +56,9 @@ class AwsService
 
         try {
             /** @var Result $result */
-            $result = $s3->putObject([
+            $result = $s3->deleteObject([
                 "Bucket" => env("AWS_BUCKET"),
-                "Key" => env("AWS_ENV") . "/" . $Key,
+                "Key" => $Key,
             ]);
 
         } catch (\Exception $exception) {
