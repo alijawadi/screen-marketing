@@ -4,8 +4,9 @@ namespace App\Application\Panel\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
-class TemplateUpdateRequest extends FormRequest
+class SaveTemplateStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,12 +16,8 @@ class TemplateUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "templates" => [
-                "nullable",
-                "array"
-            ],
             "store" => [
-                "nullable",
+                "required",
                 "array"
             ]
         ];
