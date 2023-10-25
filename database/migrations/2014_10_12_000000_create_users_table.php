@@ -12,11 +12,14 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained("users", "id")->cascadeOnDelete();
+            $table->foreignId('organization_id')->nullable()->constrained("organizations", "id")->nullOnDelete();
             $table->uuid()->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->text('password');
+            $table->json('roles')->default(json_encode([]));
+            $table->json('accesses')->default(json_encode([]));
             $table->boolean('is_organization_owner');
 
             $table->rememberToken();

@@ -25,11 +25,14 @@ class User extends Authenticatable implements Auditable
     protected $table = "users";
 
     protected $fillable = [
+        "parent_id",//nullable
         "organization_id",
         "uuid",
         "name",
         "email",
         "password",
+        "roles",
+        "accesses",
         "email_verified_at",//nullable
         "is_organization_owner",
     ];
@@ -42,11 +45,14 @@ class User extends Authenticatable implements Auditable
      * @var array
      */
     protected $casts = [
+        "parent_id" => "integer",
         "organization_id" => "integer",
         "uuid" => "string",
         "name" => "string",
         "email" => "integer",
         'password' => 'hashed',
+        'roles' => 'object',
+        'accesses' => 'object',
         'email_verified_at' => 'datetime',
         'is_organization_owner' => 'boolean',
     ];
