@@ -34,6 +34,14 @@ class RegisterUserAction
                 "owner_id" => $user->id,
                 "name" => "Organization",
                 "description" => null,
+                "phone" => null,
+                "country_code" => null,
+                "country" => null,
+                "city" => null,
+                "street" => null,
+                "postcode" => null,
+                "lat" => null,
+                "lon" => null,
             ]);
 
         $user->update([
