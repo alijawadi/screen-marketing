@@ -22,20 +22,25 @@ class AwsService
         return $result->get("ObjectURL");
     }
 
-    public function uploadFile(string $directoryName, $file): string|null
+    public function uploadFile(string $directoryName, $file): array|null
     {
         /** @var S3Client $s3 */
         $s3 = App::make("aws")->createClient("s3");
 
         try {
+            $Key = env("AWS_ENV") . "/" . $directoryName;
+
             /** @var Result $result */
             $result = $s3->putObject([
                 "Bucket" => env("AWS_BUCKET"),
-                "Key" => env("AWS_ENV") . "/" . $directoryName,
+                "Key" => $Key,
                 "SourceFile" => $file,
             ]);
 
-            return $result->get("ObjectURL");
+            return [
+                $Key,
+                $result->get("ObjectURL")
+            ];
 
         } catch (\Exception $exception) {
 
