@@ -4,10 +4,12 @@ namespace App\Application\Panel\Controllers\Media;
 
 use App\Application\Panel\Controllers\PanelAppBaseController;
 use App\Application\Panel\Requests\AddTemplateFileRequest;
+use App\Application\Panel\Requests\RemoveTemplateFileRequest;
 use App\Application\Panel\Requests\TemplateUpdateRequest;
 use App\Application\Shared\Responses\SuccessResponse;
 use App\Domain\Media\Actions\Template\AddTemplateFileAction;
 use App\Domain\Media\Actions\Template\GetTemplateAction;
+use App\Domain\Media\Actions\Template\RemoveTemplateFileAction;
 use App\Domain\Media\Actions\Template\UpdateTemplateAction;
 use App\Domain\Media\Models\Template;
 use Illuminate\Http\Request;
@@ -48,9 +50,9 @@ class TemplateController extends PanelAppBaseController
      * @param TemplateUpdateRequest $request
      * @return SuccessResponse
      */
-    public function removeTemplateFile(AddUpdateFileRequest $request): SuccessResponse
+    public function removeTemplateFile(RemoveTemplateFileRequest $request): SuccessResponse
     {
-        AddTemplateFileAction::run($request->user()->organization_id, $request->validated());
+        RemoveTemplateFileAction::run($request->user()->organization_id, $request->validated());
 
         return new SuccessResponse();
     }
