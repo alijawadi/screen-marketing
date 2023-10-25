@@ -3,7 +3,7 @@
 namespace App\Application\Panel\Controllers\Media;
 
 use App\Application\Panel\Controllers\PanelAppBaseController;
-use App\Application\Panel\Requests\AddUpdateFileRequest;
+use App\Application\Panel\Requests\AddTemplateFileRequest;
 use App\Application\Panel\Requests\TemplateUpdateRequest;
 use App\Application\Shared\Responses\SuccessResponse;
 use App\Domain\Media\Actions\Template\AddTemplateFileAction;
@@ -32,10 +32,23 @@ class TemplateController extends PanelAppBaseController
     /**
      * Panel: Update a Template
      *
+     * @param AddTemplateFileRequest $request
+     * @return SuccessResponse
+     */
+    public function addTemplateFile(AddTemplateFileRequest $request): SuccessResponse
+    {
+        AddTemplateFileAction::run($request->user()->organization_id, $request->validated());
+
+        return new SuccessResponse();
+    }
+
+    /**
+     * Panel: Update a Template
+     *
      * @param TemplateUpdateRequest $request
      * @return SuccessResponse
      */
-    public function addTemplateFile(AddUpdateFileRequest $request): SuccessResponse
+    public function removeTemplateFile(AddUpdateFileRequest $request): SuccessResponse
     {
         AddTemplateFileAction::run($request->user()->organization_id, $request->validated());
 

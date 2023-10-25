@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
-class AddUpdateFileRequest extends FormRequest
+class AddTemplateFileRequest extends FormRequest
 {
     public function authorize(): bool
     {
