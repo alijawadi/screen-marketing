@@ -22,8 +22,9 @@ class ScreenController extends PanelAppBaseController
      */
     public function index(Request $request): SuccessResponse
     {
-        $list = PanelScreenList::run();
-        return new SuccessResponse($list);
+        $screens = PanelScreenList::run($request->user()->organization_id);
+
+        return new SuccessResponse($screens);
     }
 
     /**

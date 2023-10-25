@@ -2,22 +2,20 @@
 
 namespace App\Domain\Screen\Actions;
 
-use App\Domain\Screen\DataTransferObjects\ScreenDTO;
-use Illuminate\Support\Facades\Auth;
+use Domain\Screen\Models\Screen;
+use Illuminate\Support\Collection;
 use Lorisleiva\Actions\Concerns\AsObject;
-use Spatie\LaravelData\CursorPaginatedDataCollection;
-use Spatie\LaravelData\DataCollection;
-use Spatie\LaravelData\PaginatedDataCollection;
 
 class PanelScreenList
 {
     use AsObject;
 
-    public function handle(): DataCollection|CursorPaginatedDataCollection|PaginatedDataCollection
+    public function handle(int $organization_id): Collection
     {
-        //todo get the Org id from app layer
-        $screens = Auth::user()->organization->screens();
+        $screens = Screen::query()
+            ->where("organization_id", "=", $organization_id)
+            ->get();
 
-        return ScreenDTO::collection($screens->paginate());
+        return $screens;
     }
 }
