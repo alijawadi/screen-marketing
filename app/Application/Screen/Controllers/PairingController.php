@@ -12,6 +12,9 @@ use Domain\Screen\Actions\GeneratePairingCodeAction;
 use Domain\Screen\Models\PairingCode;
 use Domain\Screen\Models\Screen;
 use Illuminate\Http\Response;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
 
 class PairingController extends ScreenAppBaseController
 {
@@ -28,7 +31,26 @@ class PairingController extends ScreenAppBaseController
         /** @var PairingCode $pairingCode */
         $pairingCode = GeneratePairingCodeAction::run($screen->id);
 
-        return new SuccessResponse(['code' => $pairingCode->code], 201);
+        $screen->update([
+            "broadcast_chanel" => $screen->device_id . $pairingCode->code,
+        ]);
+
+        //***********************************************************
+        $subscriptions = [
+            $screen->broadcast_chanel,
+        ];
+
+        $jwtConfiguration = Configuration::forSymmetricSigner(
+            new Sha256(),
+            InMemory::plainText(config('broadcasting.connections.mercure.secret'))
+        );
+
+        $token = $jwtConfiguration->builder()
+            ->withClaim('mercure', ['subscribe' => $subscriptions])
+            ->getToken($jwtConfiguration->signer(), $jwtConfiguration->signingKey())
+            ->toString();
+
+        return new SuccessResponse(["code" => $pairingCode->code, "token" => $token, "broadcast_chanel" => $screen->broadcast_chanel], 201);
     }
 
     /**
@@ -44,8 +66,8 @@ class PairingController extends ScreenAppBaseController
     {
         $token = CheckPairingStatusAction::run($request->get("code"));
 
-        if (!$token){
-            return new ErrorResponse("Code is not assigned to any account.",406);
+        if (!$token) {
+            return new ErrorResponse("Code is not assigned to any account.", 406);
         }
 
         return new SuccessResponse(['token' => $token]);
