@@ -22,6 +22,14 @@ class Organization extends Model implements Auditable
         "owner_id",
         "name",
         "description",//nullable
+        "phone",//nullable
+        "country_code",//nullable
+        "country",//nullable
+        "city",//nullable
+        "street",//nullable
+        "postcode",//nullable
+        "lat",//nullable
+        "lon",//nullable
     ];
 
     /**
@@ -35,6 +43,13 @@ class Organization extends Model implements Auditable
         "owner_id" => "integer",
         "name" => "string",
         "description" => "string",
+        "phone" => "string",
+        "country_code" => "string",
+        "country" => "string",
+        "city" => "string",
+        "postcode" => "string",
+        "lat" => "string",
+        "lon" => "string",
     ];
 
     protected $dates = [

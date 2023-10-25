@@ -15,6 +15,14 @@ return new class extends Migration {
             $table->foreignId('owner_id')->constrained("users", "id")->cascadeOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('country_code')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('street')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lon')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
