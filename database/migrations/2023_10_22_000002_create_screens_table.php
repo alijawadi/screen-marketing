@@ -22,6 +22,12 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->json('tv_data')->nullable();
             $table->json('setting')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('street')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lon')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

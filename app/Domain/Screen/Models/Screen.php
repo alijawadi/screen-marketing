@@ -30,6 +30,12 @@ class Screen extends Authenticatable implements Auditable
         "description",//nullable
         "tv_data",//nullable
         "setting",//nullable
+        "country",//nullable - default is same as organization
+        "city",//nullable - default is same as organization
+        "street",//nullable - default is same as organization
+        "postcode",//nullable - default is same as organization
+        "lat",//nullable - default is same as organization
+        "lon",//nullable - default is same as organization
     ];
 
     /**
@@ -49,6 +55,11 @@ class Screen extends Authenticatable implements Auditable
         "description" => "string",
         "tv_data" => "object",
         "setting" => "object",
+        "country" => "string",
+        "city" => "string",
+        "postcode" => "string",
+        "lat" => "string",
+        "lon" => "string",
     ];
 
     protected $dates = [
