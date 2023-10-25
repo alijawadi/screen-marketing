@@ -85,6 +85,16 @@ class User extends Authenticatable implements Auditable
     protected string $dataClass = UserDTO::class;
 
 
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "parent_id");
+    }
+
+    public function team(): HasMany
+    {
+        return $this->hasMany(User::class, "parent_id", "id");
+    }
+
     public function createdTemplates(): HasMany
     {
         return $this->hasMany(Template::class, "created_by", "id");
