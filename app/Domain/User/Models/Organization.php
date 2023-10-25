@@ -47,6 +47,11 @@ class Organization extends Model implements Auditable
         'id'
     ];
 
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "owner_id");
+    }
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class, "organization_id", "id");
@@ -65,11 +70,6 @@ class Organization extends Model implements Auditable
     public function screens(): HasMany
     {
         return $this->hasMany(Screen::class, "organization_id", "id");
-    }
-
-    public function owner(): BelongsTo
-    {
-        return $this->belongsTo(User::class, "owner_id");
     }
 
 }
