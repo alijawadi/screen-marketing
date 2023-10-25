@@ -42,7 +42,7 @@ class AssignScreenAction
             "organization_id" => $data["organization_id"],
         ]);
 
-        Broadcast::event(new ScreenAddedToOrganizationEvent($pairingCode->code));
+        Broadcast::event(new ScreenAddedToOrganizationEvent($screen->broadcast_chanel, $pairingCode->code));
     }
 
 }

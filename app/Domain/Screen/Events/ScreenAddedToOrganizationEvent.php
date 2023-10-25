@@ -7,10 +7,12 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ScreenAddedToOrganizationEvent implements ShouldBroadcast
 {
-    public function __construct(public string $code){}
+    public function __construct(protected string $chanel, public string $code)
+    {
+    }
 
     public function broadcastOn(): Channel
     {
-        return new Channel("screen_added", false);
+        return new Channel($this->chanel, true);
     }
 }
