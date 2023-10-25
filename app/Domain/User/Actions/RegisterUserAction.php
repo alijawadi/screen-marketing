@@ -4,6 +4,8 @@ namespace Domain\User\Actions;
 
 use App\Domain\Media\Models\Folder;
 use App\Domain\Media\Models\Template;
+use App\Services\AwsService;
+use Aws\S3\S3Client;
 use Domain\User\Models\Organization;
 use Domain\User\Models\User;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -65,6 +67,9 @@ class RegisterUserAction
             "templates" => [],
             "store" => [],
         ]);
+
+        $awsService = new AwsService();
+        $awsService->createDirectory("root_" . $organization->id);
 
         return $user->createToken('register')->plainTextToken;
     }
