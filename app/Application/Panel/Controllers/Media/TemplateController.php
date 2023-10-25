@@ -6,10 +6,11 @@ use App\Application\Panel\Controllers\PanelAppBaseController;
 use App\Application\Panel\Requests\TemplateStoreRequest;
 use App\Application\Panel\Requests\TemplateUpdateRequest;
 use App\Application\Shared\Responses\SuccessResponse;
-use App\Domain\Media\Actions\Template\ListTemplateAction;
+use App\Domain\Media\Actions\Template\GetTemplateAction;
 use App\Domain\Media\Actions\Template\StoreTemplateAction;
 use App\Domain\Media\Actions\Template\UpdateTemplateAction;
 use App\Domain\Media\DataTransferObjects\TemplateStoreDTO;
+use App\Domain\Media\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -21,24 +22,12 @@ class TemplateController extends PanelAppBaseController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request): Response
+    public function get(Request $request): Response
     {
-        $data = ListTemplateAction::run();
-        return new SuccessResponse($data);
-    }
+        /** @var Template $template */
+        $template = GetTemplateAction::run($request->user()->organization_id);
 
-    /**
-     * Panel: Store a new Template
-     *
-     * @param TemplateStoreRequest $request
-     * @return SuccessResponse
-     */
-    public function store(TemplateStoreRequest $request): SuccessResponse
-    {
-        $templateStoreDto = TemplateStoreDTO::from($request);
-        $templateDto = StoreTemplateAction::run($templateStoreDto);
-
-        return new SuccessResponse($templateDto, 201);
+        return new SuccessResponse($template);
     }
 
     /**

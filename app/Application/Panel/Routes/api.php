@@ -34,8 +34,7 @@ Route::middleware(['auth:api', "throttle:api_1000"])->group(function () {
     });
 
     Route::prefix('template')->group(function () {
-        Route::get('/list', [TemplateController::class, 'index']);
-        Route::post('/store', [TemplateController::class, 'store']);
+        Route::get('/get', [TemplateController::class, 'get']);
         Route::post('/update', [TemplateController::class, 'update']);
     });
 
