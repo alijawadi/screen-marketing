@@ -14,6 +14,7 @@ class CreateScreenRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'device_id' => ['required', "string"],
             'tv_data' => ['present', "array"],
         ];
     }
