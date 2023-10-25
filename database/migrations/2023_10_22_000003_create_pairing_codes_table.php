@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('pairing_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('screen_id')->constrained("screens", "id")->cascadeOnDelete();
             $table->foreignId('organization_id')->nullable()->constrained("organizations", "id")->cascadeOnDelete();
+            $table->foreignId('screen_id')->constrained("screens", "id")->cascadeOnDelete();
 
             $table->string('code')->unique();
 
