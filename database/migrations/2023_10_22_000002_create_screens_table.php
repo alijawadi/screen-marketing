@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->string('postcode')->nullable();
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
+            $table->string('broadcast_chanel')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

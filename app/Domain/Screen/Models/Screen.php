@@ -36,6 +36,7 @@ class Screen extends Authenticatable implements Auditable
         "postcode",//nullable - default is same as organization
         "lat",//nullable - default is same as organization
         "lon",//nullable - default is same as organization
+        "broadcast_chanel",//nullable - default is same as organization
     ];
 
     /**
@@ -60,6 +61,7 @@ class Screen extends Authenticatable implements Auditable
         "postcode" => "string",
         "lat" => "string",
         "lon" => "string",
+        "broadcast_chanel" => "string",
     ];
 
     protected $dates = [
