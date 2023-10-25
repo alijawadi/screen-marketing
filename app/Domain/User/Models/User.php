@@ -26,7 +26,7 @@ class User extends Authenticatable implements Auditable
 
     protected $fillable = [
         "parent_id",//nullable
-        "organization_id",
+        "organization_id",//nullable
         "uuid",
         "name",
         "email",
