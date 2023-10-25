@@ -49,7 +49,7 @@ class AwsService
         return null;
     }
 
-    public function removeFile(string $directoryName): string|null
+    public function removeFile(string $Key): string|null
     {
         /** @var S3Client $s3 */
         $s3 = App::make("aws")->createClient("s3");
@@ -58,7 +58,7 @@ class AwsService
             /** @var Result $result */
             $result = $s3->putObject([
                 "Bucket" => env("AWS_BUCKET"),
-                "Key" => env("AWS_ENV") . "/" . $directoryName,
+                "Key" => env("AWS_ENV") . "/" . $Key,
             ]);
 
         } catch (\Exception $exception) {
