@@ -7,6 +7,7 @@ use App\Application\Screen\Requests\SaveScreenSettingRequest;
 use App\Application\Shared\Responses\SuccessResponse;
 use App\Domain\Screen\Actions\SaveScreenDataAction;
 use App\Domain\Screen\Actions\SaveScreenSettingAction;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ScreenDataController extends ScreenAppBaseController
@@ -25,7 +26,7 @@ class ScreenDataController extends ScreenAppBaseController
     }
 
     /**
-     * Update Screen Data
+     * Update Screen Setting
      *
      * @param SaveScreenSettingRequest $request
      * @return Response
@@ -36,5 +37,17 @@ class ScreenDataController extends ScreenAppBaseController
 
         return new SuccessResponse();
     }
+
+    /**
+     * get Screen Data
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function getData(Request $request): Response
+    {
+        return new SuccessResponse(["Data" => $request->user()->tv_data]);
+    }
+
 
 }
