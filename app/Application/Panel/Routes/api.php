@@ -6,6 +6,7 @@ use App\Application\Panel\Controllers\User\AuthControllerApp;
 use Illuminate\Support\Facades\Route;
 use App\Application\Panel\Controllers\Organization\OrganizationController;
 use App\Application\Panel\Controllers\Template\TemplateController;
+use App\Application\Panel\Controllers\Folder\FolderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,8 @@ Route::middleware(['auth:api', "throttle:api_1000"])->group(function () {
     });
 
     Route::prefix('folders')->group(function () {
-
+        Route::get('/list', [FolderController::class, 'list']);
+       // Route::post('/add', [ScreenController::class, 'add']);
     });
 
     Route::prefix('media')->group(function () {

@@ -67,7 +67,7 @@ class Folder extends Model implements HasMedia
 
     public function children(): HasMany
     {
-        return $this->hasMany(Folder::class, "parent_id");
+        return $this->hasMany(Folder::class, "parent_id")->with(["children"]);
     }
 
     public function parent(): BelongsTo
