@@ -31,7 +31,7 @@ Route::middleware(['auth:api', "throttle:api_1000"])->group(function () {
 
     Route::prefix('organization')->group(function () {
         Route::get('/get', [OrganizationController::class, 'get']);
-        //Route::post('/save', [OrganizationController::class, 'save']);
+        Route::post('/save', [OrganizationController::class, 'save']);
     });
 
     Route::prefix('screen')->group(function () {
