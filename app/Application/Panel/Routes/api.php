@@ -34,7 +34,7 @@ Route::middleware(['auth:api', "throttle:api_1000"])->group(function () {
         Route::post('/save', [OrganizationController::class, 'save']);
     });
 
-    Route::prefix('screen')->group(function () {
+    Route::prefix('screens')->group(function () {
         Route::get('/list', [ScreenController::class, 'index']);
         Route::post('/add', [ScreenController::class, 'add']);
     });
@@ -44,6 +44,10 @@ Route::middleware(['auth:api', "throttle:api_1000"])->group(function () {
         Route::post('/add_template_file', [TemplateController::class, 'addTemplateFile']);
         Route::post('/remove_template_file', [TemplateController::class, 'removeTemplateFile']);
         Route::post('/save_store', [TemplateController::class, 'saveStore']);
+    });
+
+    Route::prefix('folders')->group(function () {
+
     });
 
     Route::prefix('media')->group(function () {
