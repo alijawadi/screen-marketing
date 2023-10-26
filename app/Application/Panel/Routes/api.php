@@ -5,6 +5,7 @@ use App\Application\Panel\Controllers\Media\TemplateController;
 use App\Application\Panel\Controllers\Screen\ScreenController;
 use App\Application\Panel\Controllers\User\AuthControllerApp;
 use Illuminate\Support\Facades\Route;
+use App\Application\Panel\Controllers\Organization\OrganizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/qq', function (){
+Route::get('/qq', function () {
     return view("test_mercure");
 });
 
@@ -27,6 +28,11 @@ Route::middleware(["throttle:api_20"])->group(function () {
 });
 
 Route::middleware(['auth:api', "throttle:api_1000"])->group(function () {
+
+    Route::prefix('organization')->group(function () {
+        Route::get('/get', [OrganizationController::class, 'get']);
+        //Route::post('/save', [OrganizationController::class, 'save']);
+    });
 
     Route::prefix('screen')->group(function () {
         Route::get('/list', [ScreenController::class, 'index']);
