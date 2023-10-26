@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->uuid()->unique();
             $table->string('name');
+            $table->boolean('is_system');
 
             $table->timestamps();
             $table->softDeletes();
