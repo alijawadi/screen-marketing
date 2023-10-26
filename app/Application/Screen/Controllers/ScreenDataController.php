@@ -2,10 +2,9 @@
 
 namespace App\Application\Screen\Controllers;
 
-use App\Application\Screen\Requests\ScreenDataRequest;
+use App\Application\Screen\Requests\SaveScreenDataRequest;
 use App\Application\Shared\Responses\SuccessResponse;
-use App\Domain\Screen\Actions\StoreScreenDataAction;
-use App\Domain\Screen\DataTransferObjects\ScreenDTO;
+use App\Domain\Screen\Actions\SaveScreenDataAction;
 use Illuminate\Http\Response;
 
 class ScreenDataController extends ScreenAppBaseController
@@ -13,15 +12,13 @@ class ScreenDataController extends ScreenAppBaseController
     /**
      * Update Screen Data
      *
-     * @param ScreenDataRequest $request
+     * @param SaveScreenDataRequest $request
      * @return Response
      */
-    public function update(ScreenDataRequest $request): Response
+    public function saveData(SaveScreenDataRequest $request): Response
     {
-        $screen = $request->user();
-        $screenDto = ScreenDTO::from($request, $screen->id);
-        $screenData = StoreScreenDataAction::run($screenDto);
+        SaveScreenDataAction::run($request->validated(), $request->user());
 
-        return new SuccessResponse($screenData->toArray());
+        return new SuccessResponse();
     }
 }
