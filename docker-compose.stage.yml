@@ -75,8 +75,8 @@ services:
       - POSTGRES_USER=postgres
     volumes:
       - dbdata:/var/lib/postgresql/data
-    # ports:
-    #     - 5432:5432
+    ports:
+      - 5433:5432
     networks:
       - screen-apis-net
 
