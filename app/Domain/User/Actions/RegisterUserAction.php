@@ -23,6 +23,7 @@ class RegisterUserAction
         $data["uuid"] = null;
         $data["email_verified_at"] = null;
         $data["is_organization_owner"] = true;
+        $data["is_active"] = true;
         $data["roles"] = [];
         $data["accesses"] = [];
 

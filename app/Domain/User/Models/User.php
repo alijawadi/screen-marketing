@@ -35,6 +35,7 @@ class User extends Authenticatable implements Auditable
         "accesses",
         "email_verified_at",//nullable
         "is_organization_owner",
+        "is_active",// active and de-active children
     ];
 
     /**
@@ -55,6 +56,7 @@ class User extends Authenticatable implements Auditable
         'accesses' => 'object',
         'email_verified_at' => 'datetime',
         'is_organization_owner' => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     protected $dates = [

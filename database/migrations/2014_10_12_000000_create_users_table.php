@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->json('roles')->default(json_encode([]));
             $table->json('accesses')->default(json_encode([]));
             $table->boolean('is_organization_owner');
+            $table->boolean('is_active');
 
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
