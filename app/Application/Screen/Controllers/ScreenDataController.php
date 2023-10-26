@@ -46,8 +46,18 @@ class ScreenDataController extends ScreenAppBaseController
      */
     public function getData(Request $request): Response
     {
-        return new SuccessResponse(["Data" => $request->user()->tv_data]);
+        return new SuccessResponse(["data" => $request->user()->tv_data]);
     }
 
+    /**
+     * get Screen Data
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function getSetting(Request $request): Response
+    {
+        return new SuccessResponse(["setting" => $request->user()->setting]);
+    }
 
 }
