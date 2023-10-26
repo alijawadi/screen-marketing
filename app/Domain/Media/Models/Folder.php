@@ -7,6 +7,7 @@ use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -21,6 +22,7 @@ class Folder extends Model implements HasMedia
 
     protected $fillable = [
         "organization_id",
+        "parent_id",
         "created_by",//nullable
         "updated_by",//nullable
         "uuid",
@@ -36,6 +38,7 @@ class Folder extends Model implements HasMedia
      */
     protected $casts = [
         "organization_id" => "integer",
+        "parent_id" => "integer",
         "created_by" => "integer",
         "updated_by" => "integer",
         "uuid" => "string",
@@ -58,6 +61,16 @@ class Folder extends Model implements HasMedia
             ->addMediaConversion("preview")
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued();
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(Folder::class, "parent_id");
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Folder::class, "parent_id");
     }
 
     public function organization(): BelongsTo
