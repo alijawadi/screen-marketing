@@ -5,7 +5,6 @@ namespace Domain\User\Actions;
 use App\Domain\Media\Models\Folder;
 use App\Domain\Media\Models\Template;
 use App\Services\AwsService;
-use Aws\S3\S3Client;
 use Domain\User\Models\Organization;
 use Domain\User\Models\User;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -50,13 +49,39 @@ class RegisterUserAction
             "organization_id" => $organization->id,
         ]);
 
-        Folder::query()
+        /** @var Folder $rootFolder */
+        $rootFolder = Folder::query()
             ->create([
                 "organization_id" => $organization->id,
+                "parent_id" => null,
                 "created_by" => $user->id,
                 "updated_by" => null,
                 "uuid" => null,
                 "name" => "root",
+                "is_system" => true,
+            ]);
+
+        /** @var Folder $templatesFolder */
+        $templatesFolder = Folder::query()
+            ->create([
+                "organization_id" => $organization->id,
+                "parent_id" => $rootFolder->id,
+                "created_by" => $user->id,
+                "updated_by" => null,
+                "uuid" => null,
+                "name" => "templates",
+                "is_system" => true,
+            ]);
+
+        Folder::query()
+            ->create([
+                "organization_id" => $organization->id,
+                "parent_id" => $templatesFolder->id,
+                "created_by" => $user->id,
+                "updated_by" => null,
+                "uuid" => null,
+                "name" => "images",
+                "is_system" => true,
             ]);
 
         Template::query()->create([
@@ -69,7 +94,7 @@ class RegisterUserAction
         ]);
 
         $awsService = new AwsService();
-        $awsService->createDirectory("root_" . $organization->id);
+        $awsService->createDirectory("root_" . $organization->id . "/templates/images");
 
         return $user->createToken('register')->plainTextToken;
     }
