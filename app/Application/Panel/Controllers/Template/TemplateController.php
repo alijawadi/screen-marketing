@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Panel\Controllers\Media;
+namespace App\Application\Panel\Controllers\Template;
 
 use App\Application\Panel\Controllers\PanelAppBaseController;
 use App\Application\Panel\Requests\AddTemplateFileRequest;

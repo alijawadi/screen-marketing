@@ -1,11 +1,11 @@
 <?php
 
 use App\Application\Panel\Controllers\Media\MediaController;
-use App\Application\Panel\Controllers\Media\TemplateController;
 use App\Application\Panel\Controllers\Screen\ScreenController;
 use App\Application\Panel\Controllers\User\AuthControllerApp;
 use Illuminate\Support\Facades\Route;
 use App\Application\Panel\Controllers\Organization\OrganizationController;
+use App\Application\Panel\Controllers\Template\TemplateController;
 
 /*
 |--------------------------------------------------------------------------
