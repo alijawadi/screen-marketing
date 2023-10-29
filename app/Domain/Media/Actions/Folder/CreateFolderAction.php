@@ -15,10 +15,18 @@ class CreateFolderAction
         $key = "root_" . $organization_id;
 
         if ($data["parent_id"]) {
-            /** @var Folder $folder */
-            $folder = Folder::query()->select(["id", "key"])->find($data["parent_id"]);
+            /** @var Folder $parent */
+            $parent = Folder::query()
+                ->where("organization_id", "=", $organization_id)
+                ->where("id", "=", $data["parent_id"])
+                ->select(["id", "key"])
+                ->first();
 
-            $key = $folder->key;
+            if (!$parent) {
+                return "parentNotFound";
+            }
+
+            $key = $parent->key;
         }
 
         //***************************************************

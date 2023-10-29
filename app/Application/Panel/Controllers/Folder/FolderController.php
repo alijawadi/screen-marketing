@@ -44,7 +44,11 @@ class FolderController extends PanelAppBaseController
         /** @var Folder|string $folder */
         $folder = CreateFolderAction::run($request->user()->organization_id, $request->user()->id, $request->validated());
 
-        if ($folder == "exist") {
+        if ($folder === "parentNotFound") {
+            return new ErrorResponse("The selected parent id is invalid.", 422);
+        }
+
+        if ($folder === "exist") {
             return new ErrorResponse("The name has already been taken", 406);
         }
 
