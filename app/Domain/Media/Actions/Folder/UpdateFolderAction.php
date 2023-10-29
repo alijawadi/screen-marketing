@@ -13,7 +13,14 @@ class UpdateFolderAction
     public function handle(int $organization_id, array $data): Folder|string
     {
         /** @var Folder $folder */
-        $folder = Folder::query()->find($data["id"]);
+        $folder = Folder::query()
+            ->where("organization_id", "=", $organization_id)
+            ->where("id", "=", $data["id"])
+            ->first();
+
+        if (!$folder) {
+            return "notFound";
+        }
 
         if ($folder->is_system) {
             return "system";

@@ -66,6 +66,10 @@ class FolderController extends PanelAppBaseController
         /** @var Folder|string $folder */
         $folder = UpdateFolderAction::run($request->user()->organization_id, $request->validated());
 
+        if ($folder === "notFound") {
+            return new ErrorResponse("The selected id is invalid.", 422);
+        }
+
         if ($folder === "exist") {
             return new ErrorResponse("The name has already been taken", 406);
         }
