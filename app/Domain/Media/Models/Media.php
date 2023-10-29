@@ -2,15 +2,18 @@
 
 namespace App\Domain\Media\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\MediaCollections\Models\Concerns\HasUuid;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
 class Media extends Model //implements HasMedia
 {
     // use InteractsWithMedia;
+    use HasFactory, HasUuid;
 
     protected $table = "media";
 
