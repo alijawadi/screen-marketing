@@ -77,7 +77,7 @@ class Organization extends Model implements Auditable
         return $this->hasMany(Folder::class, "organization_id", "id");
     }
 
-    public function templates(): HasMany
+    public function canvases(): HasMany
     {
         return $this->hasMany(Canvas::class, "organization_id", "id");
     }
