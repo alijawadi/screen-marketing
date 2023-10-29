@@ -60,6 +60,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::prefix('media')->group(function () {
         Route::get('/list', [MediaController::class, 'list']);
+        Route::post('/upload', [MediaController::class, 'upload']);
     });
 
 });
