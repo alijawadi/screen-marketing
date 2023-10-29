@@ -30,12 +30,13 @@ class CreateFolderAction
         }
 
         //***************************************************
-        /** @var Folder $folder */
-        $folder = Folder::query()->select(["id", "key"])
+        /** @var Folder $folderExist */
+        $folderExist = Folder::query()
             ->where("key", "=", $key . "/" . $data["name"])
+            ->select(["id"])
             ->first();
 
-        if ($folder) {
+        if ($folderExist) {
             return "exist";
         }
 
