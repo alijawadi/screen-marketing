@@ -6,6 +6,7 @@ use App\Application\Panel\Controllers\PanelAppBaseController;
 use App\Application\Panel\Requests\AddTemplateFileRequest;
 use App\Application\Panel\Requests\RemoveTemplateFileRequest;
 use App\Application\Panel\Requests\SaveTemplateStoreRequest;
+use App\Application\Shared\Responses\ErrorResponse;
 use App\Application\Shared\Responses\SuccessResponse;
 use App\Domain\Media\Actions\Canvas\AddCanvasFileAction;
 use App\Domain\Media\Actions\Canvas\GetCanvasAction;
@@ -35,11 +36,19 @@ class CanvasController extends PanelAppBaseController
      * Panel: Update a Template
      *
      * @param AddTemplateFileRequest $request
-     * @return SuccessResponse
+     * @return Response
      */
-    public function addFile(AddTemplateFileRequest $request): SuccessResponse
+    public function addFile(AddTemplateFileRequest $request): Response
     {
-        AddCanvasFileAction::run($request->user()->organization_id, $request->validated());
+        $result = AddCanvasFileAction::run($request->user()->organization_id, $request->user()->id, $request->validated());
+
+        if ($result === "folderNotFound") {
+            return new ErrorResponse("The selected folder id is invalid.", 422);
+        }
+
+        if ($result === "notUploaded") {
+            return new ErrorResponse("Upload to CDN failed.", 500);
+        }
 
         return new SuccessResponse();
     }

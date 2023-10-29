@@ -16,11 +16,11 @@ class AddTemplateFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "template_id" => [
+            "id" => [
                 "required",
                 "string"
             ],
-            "template_file" => [
+            "file1" => [
                 "required",
                 File::types(["image/jpeg", "image/png"])
             ],
