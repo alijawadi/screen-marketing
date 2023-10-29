@@ -19,7 +19,7 @@ Route::middleware(["throttle:api_20"])->group(function () {
     Route::post('/code/check', [PairingController::class, 'checkCode']);
 });
 
-Route::middleware(['auth:screen', "throttle:api_1000"])->group(function () {
+Route::middleware(['auth:screen'])->group(function () {
     Route::post('/save_data', [ScreenDataController::class, 'saveData']);
      Route::post('/save_setting', [ScreenDataController::class, 'saveSetting']);
      Route::get('/get_data', [ScreenDataController::class, 'getData']);

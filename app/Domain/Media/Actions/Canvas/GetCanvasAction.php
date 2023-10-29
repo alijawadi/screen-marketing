@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Media\Actions\Template;
+namespace App\Domain\Media\Actions\Canvas;
 
 use App\Domain\Media\Models\Template;
 use Lorisleiva\Actions\Concerns\AsObject;
 
-class GetTemplateAction
+class GetCanvasAction
 {
     use AsObject;
 

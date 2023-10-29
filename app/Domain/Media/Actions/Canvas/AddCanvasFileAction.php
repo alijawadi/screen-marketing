@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Domain\Media\Actions\Template;
+namespace App\Domain\Media\Actions\Canvas;
 
 use App\Domain\Media\Models\Template;
 use App\Services\AwsService;
 use Illuminate\Http\UploadedFile;
 use Lorisleiva\Actions\Concerns\AsObject;
 
-class AddTemplateFileAction
+class AddCanvasFileAction
 {
     use AsObject;
 

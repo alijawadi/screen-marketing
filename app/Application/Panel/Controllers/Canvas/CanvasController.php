@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Application\Panel\Controllers\Template;
+namespace App\Application\Panel\Controllers\Canvas;
 
 use App\Application\Panel\Controllers\PanelAppBaseController;
 use App\Application\Panel\Requests\AddTemplateFileRequest;
 use App\Application\Panel\Requests\RemoveTemplateFileRequest;
 use App\Application\Panel\Requests\SaveTemplateStoreRequest;
 use App\Application\Shared\Responses\SuccessResponse;
-use App\Domain\Media\Actions\Template\AddTemplateFileAction;
-use App\Domain\Media\Actions\Template\GetTemplateAction;
-use App\Domain\Media\Actions\Template\RemoveTemplateFileAction;
-use App\Domain\Media\Actions\Template\SaveTemplateStoreAction;
+use App\Domain\Media\Actions\Canvas\AddCanvasFileAction;
+use App\Domain\Media\Actions\Canvas\GetCanvasAction;
+use App\Domain\Media\Actions\Canvas\RemoveCanvasFileAction;
+use App\Domain\Media\Actions\Canvas\SaveCanvasStoreAction;
 use App\Domain\Media\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class TemplateController extends PanelAppBaseController
+class CanvasController extends PanelAppBaseController
 {
     /**
      * Panel: Get Templates (Paginated)
@@ -26,7 +26,7 @@ class TemplateController extends PanelAppBaseController
     public function get(Request $request): Response
     {
         /** @var Template $template */
-        $template = GetTemplateAction::run($request->user()->organization_id);
+        $template = GetCanvasAction::run($request->user()->organization_id);
 
         return new SuccessResponse($template);
     }
@@ -37,9 +37,9 @@ class TemplateController extends PanelAppBaseController
      * @param AddTemplateFileRequest $request
      * @return SuccessResponse
      */
-    public function addTemplateFile(AddTemplateFileRequest $request): SuccessResponse
+    public function addFile(AddTemplateFileRequest $request): SuccessResponse
     {
-        AddTemplateFileAction::run($request->user()->organization_id, $request->validated());
+        AddCanvasFileAction::run($request->user()->organization_id, $request->validated());
 
         return new SuccessResponse();
     }
@@ -50,9 +50,9 @@ class TemplateController extends PanelAppBaseController
      * @param RemoveTemplateFileRequest $request
      * @return SuccessResponse
      */
-    public function removeTemplateFile(RemoveTemplateFileRequest $request): SuccessResponse
+    public function removeFile(RemoveTemplateFileRequest $request): SuccessResponse
     {
-        RemoveTemplateFileAction::run($request->user()->organization_id, $request->validated());
+        RemoveCanvasFileAction::run($request->user()->organization_id, $request->validated());
 
         return new SuccessResponse();
     }
@@ -65,7 +65,7 @@ class TemplateController extends PanelAppBaseController
      */
     public function saveStore(SaveTemplateStoreRequest $request): SuccessResponse
     {
-        SaveTemplateStoreAction::run($request->user()->organization_id, $request->validated());
+        SaveCanvasStoreAction::run($request->user()->organization_id, $request->validated());
 
         return new SuccessResponse();
     }

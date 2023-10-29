@@ -29,6 +29,7 @@
         php artisan db:seed
         id
         ls -l /path/
+        chmod -R u=rwx,g=rwx,o=rwx /var/www/storage/logs
         chmod -R u=rwx,g=rwx,o=rwx /path/
         docker cp screen-api-php:/var/www/vendor d:\vendor
 
