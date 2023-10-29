@@ -9,6 +9,7 @@ use App\Application\Panel\Requests\CreateFolderRequest;
 use App\Application\Shared\Responses\ErrorResponse;
 use App\Application\Shared\Responses\SuccessResponse;
 use App\Domain\Media\Actions\Folder\CreateFolderAction;
+use App\Domain\Media\Actions\Folder\GetAllFoldersAction;
 use App\Domain\Media\Models\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,11 +24,7 @@ class FolderController extends PanelAppBaseController
      */
     public function list(Request $request): Response
     {
-        $folders = Folder::query()
-            ->where("organization_id", "=", $request->user()->organization_id)
-            ->whereNull("parent_id")
-            ->with(["children"])
-            ->get();
+        $folders = GetAllFoldersAction::run($request->user()->organization_id);
 
         return new SuccessResponse($folders);
     }
