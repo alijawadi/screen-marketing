@@ -13,7 +13,11 @@ class UpdateFolderAction
     public function handle(int $organization_id, array $data): Folder|string
     {
         /** @var Folder $folder */
-        $folder = Folder::query()->select(["id", "key", "name", "parent_id"])->find($data["id"]);
+        $folder = Folder::query()->find($data["id"]);
+
+        if ($folder->is_system) {
+            return "system";
+        }
 
         $key = "root_" . $organization_id;
 

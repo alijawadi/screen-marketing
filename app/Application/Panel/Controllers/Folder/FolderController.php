@@ -64,6 +64,10 @@ class FolderController extends PanelAppBaseController
             return new ErrorResponse("The name has already been taken", 406);
         }
 
+        if ($folder == "system") {
+            return new ErrorResponse("Can not edit this folder", 406);
+        }
+
         return new SuccessResponse($folder);
     }
 
