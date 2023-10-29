@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->foreignId('organization_id')->constrained("organizations", "id")->cascadeOnDelete();
             $table->foreignId('created_by')->constrained('users', 'id')->nullOnDelete();
             $table->foreignId('updated_by')->constrained('users', 'id')->nullOnDelete();
-
+            $table->morphs('model');
             $table->uuid()->unique();
             $table->string('collection_name');
             $table->string('name');

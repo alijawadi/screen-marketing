@@ -1,6 +1,7 @@
 <?php
 
 use App\Application\Panel\Controllers\Media\MediaController;
+use App\Application\Panel\Controllers\Screen\ScreenContentController;
 use App\Application\Panel\Controllers\Screen\ScreenController;
 use App\Application\Panel\Controllers\User\AuthControllerApp;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::prefix('media')->group(function () {
         Route::get('/', [MediaController::class, 'index']);
         Route::post('/store', [MediaController::class, 'store']);
+        Route::post('/set_to_screen', [ScreenContentController::class, 'setScreenContentByMediaId']);
     });
 
 });
