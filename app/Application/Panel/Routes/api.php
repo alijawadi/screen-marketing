@@ -59,8 +59,7 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
     Route::prefix('media')->group(function () {
-        Route::get('/', [MediaController::class, 'index']);
-        Route::post('/store', [MediaController::class, 'store']);
+        Route::get('/list', [MediaController::class, 'list']);
     });
 
 });
