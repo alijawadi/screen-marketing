@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (config('app.env') === 'stage') {
-            URL::forceSchema('https');
+            $this->app['request']->server->set('HTTPS', true);
         }
 
         Gate::define('viewApiDocs', function () {
