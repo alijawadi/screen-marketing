@@ -3,6 +3,7 @@
 namespace App\Domain\Media\Actions\Canvas;
 
 use App\Domain\Media\Models\Canvas;
+use App\Domain\Media\Models\Media;
 use App\Services\AwsService;
 use Lorisleiva\Actions\Concerns\AsObject;
 
@@ -19,11 +20,17 @@ class RemoveCanvasFileAction
 
         $templates = json_decode(json_encode($canvas->templates), true);
 
-        if (isset($templates[$data["template_id"]])) {
-            $awsService = new AwsService();
-            $awsService->removeFileAndFolder($templates[$data["template_id"]]["key"]);
+        if (isset($templates[$data["id"]])) {
+            /** @var Media $media */
+            $media = Media::query()->find($templates[$data["id"]]["media_id"]);
 
-            unset($templates[$data["template_id"]]);
+            $awsService = new AwsService();
+            $awsService->removeFileAndFolder($media->key);
+
+            $media->delete();
+
+            //*******************************************
+            unset($templates[$data["id"]]);
 
             $canvas->update([
                 "templates" => $templates,
