@@ -22,7 +22,7 @@ class AddTemplateFileRequest extends FormRequest
             ],
             "template_file" => [
                 "required",
-                "image"
+                File::types(["image/jpeg", "image/png"])
             ],
         ];
     }
