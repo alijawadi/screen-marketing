@@ -2,7 +2,9 @@
 
 namespace App\Application\Panel\Requests;
 
-class PlaylistItemStoreRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class PlaylistItemStoreRequest extends FormRequest
 {
 
 }
