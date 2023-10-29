@@ -59,6 +59,7 @@ class RegisterUserAction
                 "updated_by" => null,
                 "uuid" => null,
                 "name" => "root",
+                "key" => "root_" . $organization->id,
                 "is_system" => true,
             ]);
 
@@ -71,10 +72,12 @@ class RegisterUserAction
                 "updated_by" => null,
                 "uuid" => null,
                 "name" => "canvas",
+                "key" => $rootFolder->key . "/canvas",
                 "is_system" => true,
             ]);
 
-        Folder::query()
+        /** @var Folder $imagesFolder */
+        $imagesFolder = Folder::query()
             ->create([
                 "organization_id" => $organization->id,
                 "parent_id" => $canvasFolder->id,
@@ -82,6 +85,7 @@ class RegisterUserAction
                 "updated_by" => null,
                 "uuid" => null,
                 "name" => "images",
+                "key" => $canvasFolder->key . "/images",
                 "is_system" => true,
             ]);
 
@@ -95,7 +99,7 @@ class RegisterUserAction
         ]);
 
         $awsService = new AwsService();
-        $awsService->createDirectory("root_" . $organization->id . "/canvas/images");
+        $awsService->createDirectory($imagesFolder->key);
 
         return $user->createToken('register')->plainTextToken;
     }
