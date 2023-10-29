@@ -22,7 +22,7 @@ class AddCanvasFileAction
         $file = $data["template_file"];
 
         $awsService = new AwsService();
-        $file = $awsService->uploadFile("root_" . $organization_id . "/templates/images/" . $data["template_id"] . time() . $file->getClientOriginalName(), $file);
+        $file = $awsService->uploadFile("root_" . $organization_id . "/canvas/images/" . $data["template_id"] . time() . $file->getClientOriginalName(), $file);
 
         $templates = json_decode(json_encode($canvas->templates), true);
         $templates[$data["template_id"]] = [
