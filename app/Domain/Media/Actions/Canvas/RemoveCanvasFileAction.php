@@ -21,7 +21,7 @@ class RemoveCanvasFileAction
 
         if (isset($templates[$data["template_id"]])) {
             $awsService = new AwsService();
-            $awsService->removeFile($templates[$data["template_id"]]["key"]);
+            $awsService->removeFileAndFolder($templates[$data["template_id"]]["key"]);
 
             unset($templates[$data["template_id"]]);
 

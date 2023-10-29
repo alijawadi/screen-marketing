@@ -49,7 +49,7 @@ class AwsService
         return null;
     }
 
-    public function removeFile(string $Key): string|null
+    public function removeFileAndFolder(string $Key): string|null
     {
         /** @var S3Client $s3 */
         $s3 = App::make("aws")->createClient("s3");
