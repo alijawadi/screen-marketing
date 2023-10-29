@@ -22,6 +22,7 @@ class CreateFolderRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
+                "regex:/^[A-Za-z0-9]+$/"
             ],
         ];
     }
