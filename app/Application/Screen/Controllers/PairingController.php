@@ -64,12 +64,12 @@ class PairingController extends ScreenAppBaseController
      */
     public function checkCode(CodeCheckRequest $request): Response
     {
-        $token = CheckPairingStatusAction::run($request->get("code"));
+        $data = CheckPairingStatusAction::run($request->get("code"));
 
-        if (!$token) {
+        if (!$data) {
             return new ErrorResponse("Code is not assigned to any account.", 406);
         }
 
-        return new SuccessResponse(['token' => $token]);
+        return new SuccessResponse($data);
     }
 }
