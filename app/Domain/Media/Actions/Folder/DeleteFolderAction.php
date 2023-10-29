@@ -9,7 +9,7 @@ class DeleteFolderAction
 {
     use AsObject;
 
-    public function handle(int $organization_id, array $data): bool|string
+    public function handle(array $data): bool|string
     {
         /** @var Folder $folder */
         $folder = Folder::query()->find($data["id"]);

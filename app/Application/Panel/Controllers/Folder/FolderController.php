@@ -82,7 +82,7 @@ class FolderController extends PanelAppBaseController
     public function delete(DeleteFolderRequest $request): Response
     {
         /** @var bool|string $folder */
-        $folder = DeleteFolderAction::run($request->user()->organization_id, $request->validated());
+        $folder = DeleteFolderAction::run($request->validated());
 
         if ($folder === "system") {
             return new ErrorResponse("Can not edit this folder", 406);
