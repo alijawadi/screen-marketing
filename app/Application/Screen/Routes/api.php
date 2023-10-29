@@ -3,6 +3,7 @@
 use App\Application\Screen\Controllers\PairingController;
 use App\Application\Screen\Controllers\ScreenDataController;
 use Illuminate\Support\Facades\Route;
+use App\Application\Screen\Controllers\ScreenPlayListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,10 @@ Route::middleware(["throttle:api_20"])->group(function () {
 
 Route::middleware(['auth:screen'])->group(function () {
     Route::post('/save_data', [ScreenDataController::class, 'saveData']);
-     Route::post('/save_setting', [ScreenDataController::class, 'saveSetting']);
-     Route::get('/get_data', [ScreenDataController::class, 'getData']);
-     Route::get('/get_setting', [ScreenDataController::class, 'getSetting']);
+    Route::post('/save_setting', [ScreenDataController::class, 'saveSetting']);
+    Route::get('/get_data', [ScreenDataController::class, 'getData']);
+    Route::get('/get_setting', [ScreenDataController::class, 'getSetting']);
+
+    Route::get('/get_playlist', [ScreenPlayListController::class, 'getPlaylist']);
 });
 
