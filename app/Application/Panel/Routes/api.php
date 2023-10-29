@@ -49,7 +49,7 @@ Route::middleware(['auth:api', "throttle:api_1000"])->group(function () {
 
     Route::prefix('folders')->group(function () {
         Route::get('/list', [FolderController::class, 'list']);
-       // Route::post('/add', [ScreenController::class, 'add']);
+        Route::post('/create', [FolderController::class, 'create']);
     });
 
     Route::prefix('media')->group(function () {
