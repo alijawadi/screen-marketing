@@ -25,13 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (config('app.env') === 'production') {
-            URL::forceSchema('https');
+        if (config('app.env') === 'stage') {
+            $this->app['request']->server->set('HTTPS', true);
         }
 
-        Gate::define('viewApiDocs', function () {
-            return true;
-        });
+        Gate::define('viewApiDocs', fn() => true);
 
         Scramble::extendOpenApi(function (OpenApi $openApi) {
             $openApi->secure(
