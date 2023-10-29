@@ -27,6 +27,7 @@ class Folder extends Model implements HasMedia
         "updated_by",//nullable
         "uuid",
         "name",
+        "key",
         "is_system",//if true then user can not delete it
     ];
 
@@ -44,6 +45,7 @@ class Folder extends Model implements HasMedia
         "updated_by" => "integer",
         "uuid" => "string",
         "name" => "string",
+        "key" => "string",
         "is_system" => "boolean",
     ];
 
