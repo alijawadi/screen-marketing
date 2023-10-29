@@ -17,7 +17,8 @@ class CreateFolderRequest extends FormRequest
         return [
             'parent_id' => [
                 'nullable',
-                'number',
+                'numeric',
+                Rule::exists("folders", "id")
             ],
             'name' => [
                 'required',
