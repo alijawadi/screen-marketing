@@ -55,6 +55,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/list', [FolderController::class, 'list']);
         Route::post('/create', [FolderController::class, 'create']);
         Route::put('/update', [FolderController::class, 'update']);
+        Route::put('/delete', [FolderController::class, 'delete']);
     });
 
     Route::prefix('media')->group(function () {
