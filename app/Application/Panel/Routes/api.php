@@ -55,11 +55,14 @@ Route::middleware(['auth:api'])->group(function () {
     Route::prefix('folders')->group(function () {
         Route::get('/list', [FolderController::class, 'list']);
         Route::post('/create', [FolderController::class, 'create']);
+        Route::put('/update', [FolderController::class, 'update']);
+        Route::put('/delete', [FolderController::class, 'delete']);
     });
 
     Route::prefix('media')->group(function () {
-        Route::get('/', [MediaController::class, 'index']);
-        Route::post('/store', [MediaController::class, 'store']);
+        Route::get('/list', [MediaController::class, 'list']);
+        Route::post('/upload', [MediaController::class, 'upload']);
+        Route::put('/remove', [MediaController::class, 'remove']);
         Route::post('/set_to_screen', [ScreenContentController::class, 'setScreenContentByMediaId']);
     });
 

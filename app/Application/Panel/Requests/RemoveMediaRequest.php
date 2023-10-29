@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
-class AddTemplateFileRequest extends FormRequest
+class RemoveMediaRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -17,13 +17,10 @@ class AddTemplateFileRequest extends FormRequest
     {
         return [
             "id" => [
-                "required",
-                "string"
-            ],
-            "file1" => [
-                "required",
-                File::types(["image/jpeg", "image/png"])
-            ],
+                "Required",
+                "numeric",
+                Rule::exists("media", "id"),
+            ]
         ];
     }
 }

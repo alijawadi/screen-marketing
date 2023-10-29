@@ -17,11 +17,13 @@ class CreateFolderRequest extends FormRequest
         return [
             'parent_id' => [
                 'nullable',
-                'number',
+                'numeric',
+                Rule::exists("folders", "id")
             ],
             'name' => [
                 'required',
                 'string',
+                "regex:/^[A-Za-z0-9]+$/"
             ],
         ];
     }

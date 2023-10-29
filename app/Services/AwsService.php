@@ -28,17 +28,15 @@ class AwsService
         $s3 = App::make("aws")->createClient("s3");
 
         try {
-            $Key = env("AWS_ENV") . "/" . $directoryName;
-
             /** @var Result $result */
             $result = $s3->putObject([
                 "Bucket" => env("AWS_BUCKET"),
-                "Key" => $Key,
+                "Key" => env("AWS_ENV") . "/" . $directoryName,
                 "SourceFile" => $file,
             ]);
 
             return [
-                $Key,
+                $directoryName,
                 $result->get("ObjectURL")
             ];
 
@@ -58,7 +56,7 @@ class AwsService
             /** @var Result $result */
             $result = $s3->deleteObject([
                 "Bucket" => env("AWS_BUCKET"),
-                "Key" => $Key,
+                "Key" => env("AWS_ENV") . "/" . $Key,
             ]);
 
         } catch (\Exception $exception) {

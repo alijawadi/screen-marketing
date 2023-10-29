@@ -5,7 +5,7 @@ namespace App\Application\Panel\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class MediaStoreRequest extends FormRequest
+class DeleteFolderRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,14 +15,11 @@ class MediaStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "file" => [
-                "Required",
-                "image64",
+            'id' => [
+                'required',
+                'numeric',
+                Rule::exists("folders", "id")
             ],
-            "folder_id" => [
-                "integer",
-                Rule::exists('folders', 'id')->whereNull('deleted_at'),
-            ]
         ];
     }
 }

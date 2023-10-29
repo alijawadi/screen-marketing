@@ -3,16 +3,44 @@
 namespace App\Domain\Media\Actions\Folder;
 
 use App\Domain\Media\Models\Folder;
+use App\Services\AwsService;
 use Lorisleiva\Actions\Concerns\AsObject;
 
 class CreateFolderAction
 {
     use AsObject;
 
-    public function handle(int $organization_id, int $userId, array $data): Folder
+    public function handle(int $organization_id, int $userId, array $data): Folder|string
     {
-        $path = "root_" . $organization_id;
+        $key = "root_" . $organization_id;
 
+        if ($data["parent_id"]) {
+            /** @var Folder $parent */
+            $parent = Folder::query()
+                ->where("organization_id", "=", $organization_id)
+                ->where("id", "=", $data["parent_id"])
+                ->select(["id", "key"])
+                ->first();
+
+            if (!$parent) {
+                return "parentNotFound";
+            }
+
+            $key = $parent->key;
+        }
+
+        //***************************************************
+        /** @var Folder $folderExist */
+        $folderExist = Folder::query()
+            ->where("key", "=", $key . "/" . $data["name"])
+            ->select(["id"])
+            ->first();
+
+        if ($folderExist) {
+            return "exist";
+        }
+
+        //***************************************************
         /** @var Folder $folder */
         $folder = Folder::query()
             ->create([
@@ -22,10 +50,12 @@ class CreateFolderAction
                 "updated_by" => null,
                 "uuid" => null,
                 "name" => $data["name"],
+                "key" => $key . "/" . $data["name"],
                 "is_system" => false,
             ]);
 
-        //create folder on cdn
+        $awsService = new AwsService();
+        $awsService->createDirectory($folder->key);
 
         return $folder;
     }

@@ -4,9 +4,8 @@ namespace App\Application\Panel\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\File;
 
-class AddTemplateFileRequest extends FormRequest
+class UpdateFolderRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,13 +15,15 @@ class AddTemplateFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id" => [
-                "required",
-                "string"
+            'id' => [
+                'required',
+                'numeric',
+                Rule::exists("folders", "id")
             ],
-            "file1" => [
-                "required",
-                File::types(["image/jpeg", "image/png"])
+            'name' => [
+                'required',
+                'string',
+                "regex:/^[A-Za-z0-9]+$/"
             ],
         ];
     }

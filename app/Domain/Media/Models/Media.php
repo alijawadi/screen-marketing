@@ -2,35 +2,41 @@
 
 namespace App\Domain\Media\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\MediaCollections\Models\Concerns\HasUuid;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
-class Media extends Model implements HasMedia
+class Media extends Model //implements HasMedia
 {
-    use InteractsWithMedia;
+    // use InteractsWithMedia;
+    use HasFactory, HasUuid;
 
     protected $table = "media";
 
     protected $fillable = [
         "organization_id",
-        "created_by",
-        "updated_by",
+        "folder_id",
+        "uploaded_by",
         "uuid",
-        "collection_name",
         "name",
-        "file_name",
         "mime_type",
-        "disk",
-        "conversions_disk",
         "size",
-        "manipulations",
-        "custom_properties",
-        "generated_conversions",
-        "responsive_images",
-        "order_column",
+        "url",
+        "key",
+
+
+//        "collection_name",
+//        "disk",
+//        "conversions_disk",
+//        "manipulations",
+//        "custom_properties",
+//        "generated_conversions",
+//        "responsive_images",
+//        "order_column",
     ];
 
     /**
@@ -42,21 +48,23 @@ class Media extends Model implements HasMedia
      */
     protected $casts = [
         "organization_id" => "integer",
-        "created_by" => "integer",
-        "updated_by" => "integer",
+        "folder_id" => "integer",
+        "uploaded_by" => "integer",
         "uuid" => "string",
-        "collection_name" => "string",
         "name" => "string",
-        "file_name" => "string",
         "mime_type" => "string",
-        "disk" => "string",
-        "conversions_disk" => "string",
         "size" => "integer",
-        "manipulations" => "object",
-        "custom_properties" => "object",
-        "generated_conversions" => "object",
-        "responsive_images" => "object",
-        "order_column" => "integer",
+        "url" => "string",
+        "key" => "string",
+
+//        "collection_name" => "string",
+//        "disk" => "string",
+//        "conversions_disk" => "string",
+//        "manipulations" => "object",
+//        "custom_properties" => "object",
+//        "generated_conversions" => "object",
+//        "responsive_images" => "object",
+//        "order_column" => "integer",
     ];
 
     protected $dates = [
@@ -66,11 +74,12 @@ class Media extends Model implements HasMedia
     ];
 
 
-    public function registerMediaConversions(SpatieMedia $media = null): void
-    {
-        $this
-            ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 300, 300)
-            ->nonQueued();
-    }
+//    public function registerMediaConversions(SpatieMedia $media = null): void
+//    {
+//        $this
+//            ->addMediaConversion('preview')
+//            ->fit(Manipulations::FIT_CROP, 300, 300)
+//            ->nonQueued();
+//    }
+
 }

@@ -14,7 +14,7 @@ class RemoveTemplateFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "template_id" => [
+            "id" => [
                 "required",
                 "string"
             ],
