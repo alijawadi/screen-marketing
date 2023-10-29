@@ -3,7 +3,7 @@
 namespace Domain\User\Models;
 
 use App\Domain\Media\Models\Folder;
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use App\Domain\User\DataTransferObjects\UserDTO;
 use Domain\Screen\Models\Screen;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -99,12 +99,12 @@ class User extends Authenticatable implements Auditable
 
     public function createdTemplates(): HasMany
     {
-        return $this->hasMany(Template::class, "created_by", "id");
+        return $this->hasMany(Canvas::class, "created_by", "id");
     }
 
     public function updatedTemplates(): HasMany
     {
-        return $this->hasMany(Template::class, "updated_by", "id");
+        return $this->hasMany(Canvas::class, "updated_by", "id");
     }
 
     public function createdScreens(): HasMany

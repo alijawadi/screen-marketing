@@ -2,9 +2,8 @@
 
 namespace App\Domain\Media\Actions\Canvas;
 
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use App\Services\AwsService;
-use Illuminate\Http\UploadedFile;
 use Lorisleiva\Actions\Concerns\AsObject;
 
 class RemoveCanvasFileAction
@@ -13,12 +12,12 @@ class RemoveCanvasFileAction
 
     public function handle(int $organization_id, array $data)
     {
-        /** @var Template $template */
-        $template = Template::query()
+        /** @var Canvas $canvas */
+        $canvas = Canvas::query()
             ->where("organization_id", "=", $organization_id)
             ->first();
 
-        $templates = json_decode(json_encode($template->templates), true);
+        $templates = json_decode(json_encode($canvas->templates), true);
 
         if (isset($templates[$data["template_id"]])) {
             $awsService = new AwsService();
@@ -26,7 +25,7 @@ class RemoveCanvasFileAction
 
             unset($templates[$data["template_id"]]);
 
-            $template->update([
+            $canvas->update([
                 "templates" => $templates,
             ]);
         }

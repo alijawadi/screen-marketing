@@ -11,7 +11,7 @@ use App\Domain\Media\Actions\Canvas\AddCanvasFileAction;
 use App\Domain\Media\Actions\Canvas\GetCanvasAction;
 use App\Domain\Media\Actions\Canvas\RemoveCanvasFileAction;
 use App\Domain\Media\Actions\Canvas\SaveCanvasStoreAction;
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -25,7 +25,7 @@ class CanvasController extends PanelAppBaseController
      */
     public function get(Request $request): Response
     {
-        /** @var Template $template */
+        /** @var Canvas $template */
         $template = GetCanvasAction::run($request->user()->organization_id);
 
         return new SuccessResponse($template);

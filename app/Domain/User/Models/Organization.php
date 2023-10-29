@@ -3,7 +3,7 @@
 namespace Domain\User\Models;
 
 use App\Domain\Media\Models\Folder;
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use Domain\Screen\Models\Screen;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -79,7 +79,7 @@ class Organization extends Model implements Auditable
 
     public function templates(): HasMany
     {
-        return $this->hasMany(Template::class, "organization_id", "id");
+        return $this->hasMany(Canvas::class, "organization_id", "id");
     }
 
     public function screens(): HasMany

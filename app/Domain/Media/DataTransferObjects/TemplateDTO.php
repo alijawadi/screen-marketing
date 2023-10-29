@@ -2,7 +2,7 @@
 
 namespace App\Domain\Media\DataTransferObjects;
 
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
@@ -22,7 +22,7 @@ class TemplateDTO extends Data
     {
     }
 
-    public static function fromModel(Template $template): self
+    public static function fromModel(Canvas $template): self
     {
         //todo: instead of this, eager load with a scope.
         $template->getMedia("*");

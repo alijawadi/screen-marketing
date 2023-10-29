@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         //public
         //custom-template
-        Schema::create('templates', function (Blueprint $table) {
+        Schema::create('canvas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('organization_id')->constrained("organizations","id")->cascadeOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
@@ -32,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('templates');
+        Schema::dropIfExists('canvas');
     }
 };

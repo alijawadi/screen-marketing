@@ -2,7 +2,7 @@
 
 namespace App\Domain\Media\Actions\Canvas;
 
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use Lorisleiva\Actions\Concerns\AsObject;
 
 class GetCanvasAction
@@ -11,11 +11,11 @@ class GetCanvasAction
 
     public function handle(int $organization_id)
     {
-        /** @var Template $template */
-        $template = Template::query()
+        /** @var Canvas $canvas */
+        $canvas = Canvas::query()
             ->where("organization_id", "=", $organization_id)
             ->first();
 
-        return $template;
+        return $canvas;
     }
 }

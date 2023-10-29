@@ -2,7 +2,7 @@
 
 namespace App\Domain\Media\Actions\Canvas;
 
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use Lorisleiva\Actions\Concerns\AsObject;
 
 class SaveCanvasStoreAction
@@ -11,12 +11,12 @@ class SaveCanvasStoreAction
 
     public function handle(int $organization_id, array $data)
     {
-        /** @var Template $template */
-        $template = Template::query()
+        /** @var Canvas $canvas */
+        $canvas = Canvas::query()
             ->where("organization_id", "=", $organization_id)
             ->first();
 
-        $template->update([
+        $canvas->update([
             "store" => $data["store"],
         ]);
     }

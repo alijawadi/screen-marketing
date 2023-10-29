@@ -3,7 +3,7 @@
 namespace Domain\User\Actions;
 
 use App\Domain\Media\Models\Folder;
-use App\Domain\Media\Models\Template;
+use App\Domain\Media\Models\Canvas;
 use App\Services\AwsService;
 use Domain\User\Models\Organization;
 use Domain\User\Models\User;
@@ -62,22 +62,22 @@ class RegisterUserAction
                 "is_system" => true,
             ]);
 
-        /** @var Folder $templatesFolder */
-        $templatesFolder = Folder::query()
+        /** @var Folder $canvasFolder */
+        $canvasFolder = Folder::query()
             ->create([
                 "organization_id" => $organization->id,
                 "parent_id" => $rootFolder->id,
                 "created_by" => $user->id,
                 "updated_by" => null,
                 "uuid" => null,
-                "name" => "templates",
+                "name" => "canvas",
                 "is_system" => true,
             ]);
 
         Folder::query()
             ->create([
                 "organization_id" => $organization->id,
-                "parent_id" => $templatesFolder->id,
+                "parent_id" => $canvasFolder->id,
                 "created_by" => $user->id,
                 "updated_by" => null,
                 "uuid" => null,
@@ -85,17 +85,17 @@ class RegisterUserAction
                 "is_system" => true,
             ]);
 
-        Template::query()->create([
+        Canvas::query()->create([
             "organization_id" => $organization->id,
             "created_by" => $user->id,
             "updated_by" => null,
-            "name" => "Template",
+            "name" => "Canvas",
             "templates" => [],
             "store" => [],
         ]);
 
         $awsService = new AwsService();
-        $awsService->createDirectory("root_" . $organization->id . "/templates/images");
+        $awsService->createDirectory("root_" . $organization->id . "/canvas/images");
 
         return $user->createToken('register')->plainTextToken;
     }

@@ -12,11 +12,11 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
-class Template extends Model implements HasMedia
+class Canvas extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $table = "templates";
+    protected $table = "canvas";
 
     protected $fillable = [
         "organization_id",
