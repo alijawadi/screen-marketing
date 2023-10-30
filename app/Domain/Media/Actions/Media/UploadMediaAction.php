@@ -5,6 +5,7 @@ namespace App\Domain\Media\Actions\Media;
 use App\Domain\Media\Models\Folder;
 use App\Domain\Media\Models\Media;
 use App\Services\AwsService;
+use Domain\User\Models\User;
 use Illuminate\Http\UploadedFile;
 use Lorisleiva\Actions\Concerns\AsObject;
 
@@ -45,6 +46,8 @@ class UploadMediaAction
                 "organization_id" => $organization_id,
                 "folder_id" => $folder->id,
                 "uploaded_by" => $userId,
+                "model_type" => User::class,
+                "model_id" => $userId,
                 "uuid" => null,
                 "name" => $name,
                 "mime_type" => $mimeType,
