@@ -21,6 +21,8 @@ class Media extends Model //implements HasMedia
         "organization_id",
         "folder_id",
         "uploaded_by",
+        "model_type",
+        "model_id",
         "uuid",
         "name",
         "mime_type",
@@ -50,6 +52,8 @@ class Media extends Model //implements HasMedia
         "organization_id" => "integer",
         "folder_id" => "integer",
         "uploaded_by" => "integer",
+        "model_type" => "string",
+        "model_id" => "integer",
         "uuid" => "string",
         "name" => "string",
         "mime_type" => "string",
@@ -71,6 +75,16 @@ class Media extends Model //implements HasMedia
         "created_at",
         "updated_at",
         "deleted_at",
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        "model_type",
+        "model_id",
     ];
 
 
