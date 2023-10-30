@@ -16,7 +16,8 @@ class GetAllMediaRequest extends FormRequest
     {
         return [
             'folder_id' => [
-                'required',
+                'present',
+                'nullable',
                 'numeric',
                 Rule::exists("folders", "id")
             ],

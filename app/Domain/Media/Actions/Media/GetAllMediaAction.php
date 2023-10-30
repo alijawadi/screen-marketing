@@ -16,9 +16,19 @@ class GetAllMediaAction
         /** @var Folder $folder */
         $folder = Folder::query()
             ->where("organization_id", "=", $organization_id)
-            ->where("id", "=", $data["folder_id"])
+            ->whereNull("parent_id")
+            ->where("name", "=", "root")
             ->select(["id"])
             ->first();
+
+        if ($data["folder_id"]) {
+            /** @var Folder $folder */
+            $folder = Folder::query()
+                ->where("organization_id", "=", $organization_id)
+                ->where("id", "=", $data["folder_id"])
+                ->select(["id"])
+                ->first();
+        }
 
         if (!$folder) {
             return "folderNotFound";
