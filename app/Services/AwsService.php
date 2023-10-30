@@ -13,7 +13,7 @@ class AwsService
         /** @var S3Client $s3 */
         $s3 = App::make("aws")->createClient("s3");
 
-        dd(env("AWS_BUCKET"), env("AWS_BUCKET2"));
+        dd(env("AWS_BUCKET"), env("AWS_BUCKET2"), env("QWQWQW"));
         /** @var Result $result */
         $result = $s3->putObject([
             "Bucket" => env("AWS_BUCKET"),
