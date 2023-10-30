@@ -20,6 +20,7 @@ class Organization extends Model implements Auditable
 
     protected $fillable = [
         "owner_id",
+        "root_folder_id",
         "name",
         "description",//nullable
         "phone",//nullable
@@ -41,6 +42,7 @@ class Organization extends Model implements Auditable
      */
     protected $casts = [
         "owner_id" => "integer",
+        "root_folder_id" => "integer",
         "name" => "string",
         "description" => "string",
         "phone" => "string",
