@@ -22,6 +22,8 @@ class AuthControllerApp extends PanelAppBaseController
      */
     public function register(RegisterUserRequest $request): Response
     {
+        dd(env("AWS_BUCKET"), env("AWS_BUCKET2"), env("QWQWQW"));
+
         $token = RegisterUserAction::run($request->validated());
 
         return new SuccessResponse(["token" => $token], 201);
