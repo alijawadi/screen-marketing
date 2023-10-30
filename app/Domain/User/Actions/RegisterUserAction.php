@@ -18,6 +18,8 @@ class RegisterUserAction
      */
     public function handle(array $data): string
     {
+        dd(env("AWS_BUCKET"), env("AWS_BUCKET2"), env("QWQWQW"));
+
         $data["parent_id"] = null;
         $data["organization_id"] = null;
         $data["uuid"] = null;
