@@ -21,7 +21,8 @@ class UploadMediaRequest extends FormRequest
                 File::types(["image/jpeg", "image/png"])
             ],
             "folder_id" => [
-                "Required",
+                'present',
+                'nullable',
                 "numeric",
                 Rule::exists("folders", "id"),
             ]
