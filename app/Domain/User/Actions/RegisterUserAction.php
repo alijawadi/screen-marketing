@@ -34,6 +34,7 @@ class RegisterUserAction
         $organization = Organization::query()
             ->create([
                 "owner_id" => $user->id,
+                "root_folder_id" => null,
                 "name" => "Organization",
                 "description" => null,
                 "phone" => null,
@@ -62,6 +63,10 @@ class RegisterUserAction
                 "key" => "root_" . $organization->id,
                 "is_system" => true,
             ]);
+
+        $organization->update([
+            "root_folder_id" => $rootFolder->id,
+        ]);
 
         /** @var Folder $canvasFolder */
         $canvasFolder = Folder::query()
