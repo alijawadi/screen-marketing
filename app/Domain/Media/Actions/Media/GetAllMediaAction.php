@@ -4,6 +4,7 @@ namespace App\Domain\Media\Actions\Media;
 
 use App\Domain\Media\Models\Folder;
 use App\Domain\Media\Models\Media;
+use Domain\User\Models\Organization;
 use Illuminate\Support\Collection;
 use Lorisleiva\Actions\Concerns\AsObject;
 
@@ -13,19 +14,23 @@ class GetAllMediaAction
 
     public function handle(int $organization_id, array $data): Collection|string
     {
+        /** @var Organization $organization */
+        $organization = Organization::query()->select(["id", "root_folder_id"])->find($organization_id);
+
         /** @var Folder $folder */
-        $folder = Folder::query()
-            ->where("organization_id", "=", $organization_id)
-            ->whereNull("parent_id")
-            ->where("name", "=", "root")
-            ->select(["id"])
-            ->first();
 
         if ($data["folder_id"]) {
-            /** @var Folder $folder */
+
             $folder = Folder::query()
                 ->where("organization_id", "=", $organization_id)
                 ->where("id", "=", $data["folder_id"])
+                ->select(["id"])
+                ->first();
+
+        } else {
+
+            $folder = Folder::query()
+                ->where("id", "=", $organization->root_folder_id)
                 ->select(["id"])
                 ->first();
         }
