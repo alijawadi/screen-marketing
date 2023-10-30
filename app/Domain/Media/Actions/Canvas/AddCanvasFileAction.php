@@ -51,6 +51,8 @@ class AddCanvasFileAction
                 "organization_id" => $organization_id,
                 "folder_id" => $folder->id,
                 "uploaded_by" => $userId,
+                "model_type" => Canvas::class,
+                "model_id" => $canvas->id,
                 "uuid" => null,
                 "name" => $name,
                 "mime_type" => $mimeType,
