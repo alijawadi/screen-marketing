@@ -8,6 +8,7 @@ class PlaylistItemController extends PanelAppBaseController
 {
     public function store()
     {
+        //todo add item to playlist
 
     }
 }
