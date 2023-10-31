@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
 
             $table->string('name', 50);
-            $table->unsignedBigInteger('duration');
+            $table->unsignedBigInteger('duration')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

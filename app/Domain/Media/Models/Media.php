@@ -4,16 +4,17 @@ namespace App\Domain\Media\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\MediaCollections\Models\Concerns\HasUuid;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
-class Media extends Model //implements HasMedia
+class Media extends Model implements HasMedia
 {
-    // use InteractsWithMedia;
-    use HasFactory, HasUuid;
+    use InteractsWithMedia, HasFactory, HasUuid;
 
     protected $table = "media";
 
@@ -87,13 +88,19 @@ class Media extends Model //implements HasMedia
         "model_id",
     ];
 
+    /**
+     * @throws InvalidManipulation
+     */
+    public function registerMediaConversions(SpatieMedia $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Manipulations::FIT_CROP, 300, 300)
+            ->nonQueued();
+    }
 
-//    public function registerMediaConversions(SpatieMedia $media = null): void
-//    {
-//        $this
-//            ->addMediaConversion('preview')
-//            ->fit(Manipulations::FIT_CROP, 300, 300)
-//            ->nonQueued();
-//    }
-
+    public function playlistItem(): MorphOne
+    {
+        return $this->morphOne(PlaylistItem::class, 'contentable');
+    }
 }

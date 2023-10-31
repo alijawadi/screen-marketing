@@ -4,11 +4,11 @@ namespace App\Domain\Screen\DataTransferObjects;
 
 use Spatie\LaravelData\Data;
 
-class SetContentDTO extends Data
+class SetContentByPlaylistDTO extends Data
 {
     public function __construct(
-        public int $mediaId,
-        public int $screenId,
+        public int $playlist_id,
+        public int $screen_id,
     )
     {
     }

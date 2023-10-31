@@ -1,6 +1,8 @@
 <?php
 
 use App\Application\Panel\Controllers\Media\MediaController;
+use App\Application\Panel\Controllers\Playlist\PlaylistController;
+use App\Application\Panel\Controllers\Playlist\PlaylistItemController;
 use App\Application\Panel\Controllers\Screen\ScreenContentController;
 use App\Application\Panel\Controllers\Screen\ScreenController;
 use App\Application\Panel\Controllers\User\AuthControllerApp;
@@ -40,6 +42,9 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/list', [ScreenController::class, 'index']);
         Route::post('/add', [ScreenController::class, 'add']);
         Route::post('/change-setting', [ScreenController::class, 'add']);
+        Route::post('/media/apply', [ScreenContentController::class, 'setScreenContentByMediaId']);
+        Route::post('/screen/apply', [ScreenContentController::class, 'setScreenContentByPlaylistId']);
+
     });
 
     Route::prefix('canvas')->group(function () {
@@ -48,9 +53,6 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/remove_file', [CanvasController::class, 'removeFile']);
         Route::post('/save_store', [CanvasController::class, 'saveStore']);
     });
-
-    //playlist
-    //playlist-log from screen
 
     Route::prefix('folders')->group(function () {
         Route::get('/list', [FolderController::class, 'list']);
@@ -63,7 +65,16 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/list', [MediaController::class, 'list']);
         Route::post('/upload', [MediaController::class, 'upload']);
         Route::put('/remove', [MediaController::class, 'remove']);
-        Route::post('/set_to_screen', [ScreenContentController::class, 'setScreenContentByMediaId']);
+    });
+
+    Route::prefix('playlist')->group(function () {
+        Route::get('/list', [PlaylistController::class, 'index']);
+        Route::post('/store', [PlaylistController::class, 'store']);
+        Route::get('/{id}', [PlaylistController::class, 'retrieve']);
+        Route::patch('/update', [PlaylistController::class, 'update']);
+        Route::delete('/{id}', [PlaylistController::class, 'delete']);
+
+        Route::post('/playlist/item/add', [PlaylistItemController::class, 'SetMediaToPlaylist']);
     });
 
 });

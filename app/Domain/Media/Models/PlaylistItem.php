@@ -4,6 +4,8 @@ namespace App\Domain\Media\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class PlaylistItem extends Model
 {
@@ -48,5 +50,13 @@ class PlaylistItem extends Model
         "id"
     ];
 
+    public function playlist(): BelongsTo
+    {
+        return $this->belongsTo(Playlist::class);
+    }
 
+    public function contentable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }

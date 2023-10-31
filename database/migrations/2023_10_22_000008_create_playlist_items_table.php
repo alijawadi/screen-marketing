@@ -15,10 +15,10 @@ return new class extends Migration {
             $table->foreignId('playlist_id')->constrained("playlists","id")->cascadeOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
-            $table->unsignedInteger('duration');
-            $table->string('repeat_type');//no - daily - weekly - monthly - yearly - custom
-            $table->unsignedInteger('order_column');
-            $table->morphs('content');
+            $table->unsignedInteger('duration')->nullable();
+            $table->string('repeat_type')->nullable();//no - daily - weekly - monthly - yearly - custom
+            $table->unsignedInteger('order')->default(0);
+            $table->nullableMorphs('contentable');
 
             $table->timestamps();
             $table->softDeletes();
