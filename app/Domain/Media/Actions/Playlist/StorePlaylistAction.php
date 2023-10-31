@@ -2,6 +2,7 @@
 
 namespace App\Domain\Media\Actions\Playlist;
 
+use App\Domain\Media\DataTransferObjects\PlaylistAppLayerDTO;
 use App\Domain\Media\DataTransferObjects\PlaylistDTO;
 use App\Domain\Media\Models\Playlist;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ class StorePlaylistAction
 {
     use AsObject;
 
-    public function handle(PlaylistDTO $playlistDTO): PlaylistDTO
+    public function handle(PlaylistAppLayerDTO $playlistDTO): PlaylistDTO
     {
         $playlist = Playlist::create(
             $playlistDTO->only('name')
