@@ -19,7 +19,7 @@ class SetContentByPlaylistIdAction
     {
         $screen = Screen::query()->findOrFail($dto->screen_id);
         $playlist = Playlist::query()->findOrFail($dto->playlist_id);
-        $playlistDTO = PlaylistDTO::from($playlist);
+        $playlistDTO = PlaylistDTO::from($playlist)->include('items');
         Broadcast::event(new SetScreenContentByPlaylistEvent($screen->broadcast_chanel, $playlistDTO->toArray()));
         return ScreenDTO::from($screen);
     }
