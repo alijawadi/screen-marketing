@@ -19,5 +19,5 @@ develop:
     - docker-compose -f docker-compose.stage.yml exec -T php php artisan key:generate
     - docker-compose -f docker-compose.stage.yml exec -T php php artisan optimize
     - docker-compose -f docker-compose.stage.yml exec -T php php artisan config:clear
-    - docker-compose -f docker-compose.stage.yml exec -T php php artisan migrate:refresh --step=2
+    - docker-compose -f docker-compose.stage.yml exec -T php php artisan migrate:refresh --step=3
 
