@@ -42,7 +42,7 @@ class UploadMediaAction
         }
 
         /** @var UploadedFile $file */
-        $file = $data["file1"];
+        $file = $data["file"];
 
         $size = $file->getSize();
         $mimeType = $file->getMimeType();

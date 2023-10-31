@@ -15,13 +15,13 @@ class UploadMediaRequest extends FormRequest
 
     public function rules(): array
     {
+        //please provide laravel validation rule to upload only images and videos and text files
         return [
-            "file1" => [
+            "file" => [
                 "Required",
-                File::types(["image/jpeg", "image/png"])
+                File::types(["image/jpeg", "image/png", "image/gif", "video/mp4", "application/pdf"])
             ],
             "folder_id" => [
-                'present',
                 'nullable',
                 "numeric",
                 Rule::exists("folders", "id"),

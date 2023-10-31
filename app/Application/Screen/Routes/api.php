@@ -25,7 +25,5 @@ Route::middleware(['auth:screen'])->group(function () {
     Route::post('/save_setting', [ScreenDataController::class, 'saveSetting']);
     Route::get('/get_data', [ScreenDataController::class, 'getData']);
     Route::get('/get_setting', [ScreenDataController::class, 'getSetting']);
-
-    Route::get('/get_playlist', [ScreenPlayListController::class, 'getPlaylist']);
 });
 
