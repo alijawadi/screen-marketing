@@ -5,6 +5,7 @@ namespace App\Domain\Media\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -14,7 +15,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as SpatieMedia;
 
 class Media extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasFactory, HasUuid;
+    use InteractsWithMedia, HasFactory, HasUuid, SoftDeletes;
 
     protected $table = "media";
 

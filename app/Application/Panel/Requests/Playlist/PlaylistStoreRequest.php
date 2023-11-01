@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Application\Panel\Requests;
+namespace App\Application\Panel\Requests\Playlist;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class PlaylistStoreRequest extends FormRequest
 {

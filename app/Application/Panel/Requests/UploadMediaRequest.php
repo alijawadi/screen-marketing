@@ -23,7 +23,6 @@ class UploadMediaRequest extends FormRequest
             ],
             "folder_id" => [
                 'nullable',
-                "numeric",
                 Rule::exists("folders", "id"),
             ]
         ];

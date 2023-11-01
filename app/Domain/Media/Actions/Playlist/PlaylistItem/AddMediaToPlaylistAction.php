@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Domain\Media\Actions\Playlist;
+namespace App\Domain\Media\Actions\Playlist\PlaylistItem;
 
-use App\Domain\Media\DataTransferObjects\AddMediaToPlaylistDTO;
-use App\Domain\Media\DataTransferObjects\PlaylistDTO;
+use App\Domain\Media\DataTransferObjects\Playlist\AddMediaToPlaylistDTO;
+use App\Domain\Media\DataTransferObjects\Playlist\PlaylistDTO;
 use App\Domain\Media\Models\Media;
 use App\Domain\Media\Models\Playlist;
-use App\Domain\Media\Models\PlaylistItem;
 use Lorisleiva\Actions\Concerns\AsObject;
 
 class AddMediaToPlaylistAction
@@ -21,8 +20,9 @@ class AddMediaToPlaylistAction
         $media->playlistItem()->create([
             'playlist_id' => $playlist->id,
             'order' => $addMediaToPlaylistDTO->order,
+            'duration' => $addMediaToPlaylistDTO->duration,
         ]);
 
-        return PlaylistDTO::from($playlist);
+        return PlaylistDTO::from($playlist)->include('items');
     }
 }

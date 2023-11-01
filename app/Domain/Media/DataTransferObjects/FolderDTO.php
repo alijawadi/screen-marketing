@@ -13,7 +13,7 @@ class FolderDTO extends Data
         #[MapInputName('folder_id')]
         public ?int $id,
         public ?string $uuid,
-        public string $name,
+        public ?string $name,
         public ?int $parent_id,
         #[DataCollectionOf(MediaDTO::class)]
         public ?DataCollection $media

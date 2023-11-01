@@ -73,8 +73,15 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/{id}', [PlaylistController::class, 'retrieve']);
         Route::patch('/update', [PlaylistController::class, 'update']);
         Route::delete('/{id}', [PlaylistController::class, 'delete']);
-
-        Route::post('/playlist/item/add', [PlaylistItemController::class, 'SetMediaToPlaylist']);
     });
+
+    Route::prefix('playlist/item')->group(function () {
+        Route::post('/add/media', [PlaylistItemController::class, 'setMediaToPlaylist']);
+        Route::patch('/update', [PlaylistItemController::class, 'updatePlaylistItem']);
+        Route::delete('/{id}', [PlaylistItemController::class, 'deletePlaylistItem']);
+
+        Route::patch('/bulk/update/order', [PlaylistItemController::class, 'updatePlaylistItemOrder']);
+    });
+
 
 });

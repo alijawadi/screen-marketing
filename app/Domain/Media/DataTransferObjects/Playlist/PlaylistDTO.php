@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Media\DataTransferObjects;
+namespace App\Domain\Media\DataTransferObjects\Playlist;
 
 use App\Domain\Media\Models\Playlist;
 use Spatie\LaravelData\Attributes\DataCollectionOf;

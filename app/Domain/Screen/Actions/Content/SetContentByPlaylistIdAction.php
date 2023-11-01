@@ -2,7 +2,7 @@
 
 namespace App\Domain\Screen\Actions\Content;
 
-use App\Domain\Media\DataTransferObjects\PlaylistDTO;
+use App\Domain\Media\DataTransferObjects\Playlist\PlaylistDTO;
 use App\Domain\Media\Models\Playlist;
 use App\Domain\Screen\DataTransferObjects\ScreenDTO;
 use App\Domain\Screen\DataTransferObjects\SetContentByPlaylistDTO;

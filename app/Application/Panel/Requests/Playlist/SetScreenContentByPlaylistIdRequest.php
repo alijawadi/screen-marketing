@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Panel\Requests;
+namespace App\Application\Panel\Requests\Playlist;
 
 use Illuminate\Foundation\Http\FormRequest;
 

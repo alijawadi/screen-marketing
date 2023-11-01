@@ -3,8 +3,8 @@
 namespace App\Application\Panel\Controllers\Screen;
 
 use App\Application\Panel\Controllers\PanelAppBaseController;
-use App\Application\Panel\Requests\SetScreenContentByMediaIdRequest;
-use App\Application\Panel\Requests\SetScreenContentByPlaylistIdRequest;
+use App\Application\Panel\Requests\Playlist\SetScreenContentByMediaIdRequest;
+use App\Application\Panel\Requests\Playlist\SetScreenContentByPlaylistIdRequest;
 use App\Application\Shared\Responses\SuccessResponse;
 use App\Domain\Screen\Actions\Content\SetContentByMediaIdAction;
 use App\Domain\Screen\Actions\Content\SetContentByPlaylistIdAction;
